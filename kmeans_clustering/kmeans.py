@@ -46,7 +46,7 @@ for book_num,book in enumerate(data_files):
 
 			words_per_book[book_num] += 1		
 
-book_words_count = [book_words[i].copy() for i in range(7)]
+#book_words_count = [book_words[i].copy() for i in range(7)]
 for book_num,words in enumerate(book_words):
 	for word in words:
 		book_words[book_num][word] /= (words_per_book[book_num]*1.0)
@@ -74,13 +74,13 @@ for book_num,words in enumerate(book_words):
 		for i in range(len(book_words)):
 			if word in book_words[i]:
 				del book_words[i][word]
-			if word in book_words_count[i]:
-				del book_words_count[i][word]
+	#		if word in book_words_count[i]:
+	#			del book_words_count[i][word]
 
 print("after removing: " + str(len(book_words[0])))
 
 sum_of_words = {}
-for words in book_words_count:
+for words in book_words:
 	for word in words:
 		if not word in sum_of_words:
 			sum_of_words[word] = words[word]
@@ -89,4 +89,5 @@ for words in book_words_count:
 
 print("total words left from all books " + str(len(sum_of_words)))
 
+#print(sum_of_words)
 print(encodeToAxis(sum_of_words))
