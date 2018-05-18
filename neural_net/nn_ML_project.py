@@ -75,6 +75,7 @@ def main():
 	validation_percent = 0.2
 	test_percent = 0.2347
 	num_batches = 20
+	num_epochs = 10
 
 	readInData()
 
@@ -113,82 +114,74 @@ def main():
 
 	num_correct = 0
 
-	batch_size = len(training_pages)/num_batches
-	for i in range(1, num_batches):
-		batch_pages = training_pages[batch_size*(i-1): batch_size*i]
-		random.shuffle(pages)
-		batch_error = 0
-		a1_error = 0
-		a2_error = 0
-		a3_error = 0
-		for page in batch_pages:
-			input_array = np.zeros(len(word_dic))
-			for word in page[0].split(" "):				#page[0] is the actual page, page[1] is the book number its from
-				input_array[word_dic[word]] = 1
-			input_array_transposed = np.transpose(input_array)
+	for i in range(num_epochs):
+		batch_size = len(training_pages)/num_batches
+		for i in range(1, num_batches):
+			batch_pages = training_pages[batch_size*(i-1): batch_size*i]
+			random.shuffle(pages)
+			batch_error = 0
+			a1_error = 0
+			a2_error = 0
+			a3_error = 0
+			for page in batch_pages:
+				input_array = np.zeros(len(word_dic))
+				for word in page[0].split(" "):				#page[0] is the actual page, page[1] is the book number its from
+					input_array[word_dic[word]] = 1
+				input_array_transposed = np.transpose(input_array)
 	
-			a1 = computeLayerActivation(input_array_transposed, w1)
-			a2 = computeLayerActivation(a1, w2)
-			a3 = computeLayerActivation(a2, w3)
-			classification = np.argmax(a3)
+				a1 = computeLayerActivation(input_array_transposed, w1)
+				a2 = computeLayerActivation(a1, w2)
+				a3 = computeLayerActivation(a2, w3)
+				classification = np.argmax(a3)
 
-			#print a1
-			#print "#########################################################################################################"
-			#print a2
-			#print "*********************************************************************************************************"
-			#print a3
-			#print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+				#print a1
+				#print "#####################################################################################################"
+				#print a2
+				#print "*****************************************************************************************************"
+				#print a3
+				#print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
 		
-			#Computing loss
-			y = np.zeros(7)
-			y[page[1]-1] = 1
-			log_output = np.zeros(7)
-			for i in range(a3.shape[0]):
-				log_output[i] = math.log(a3[i])
-			error = np.dot(y, log_output)+np.dot((1-y), (1-log_output))
-			batch_error += error
+				#Computing loss
+				y = np.zeros(7)
+				y[page[1]-1] = 1
+				log_output = np.zeros(7)
+				for i in range(a3.shape[0]):
+					log_output[i] = math.log(a3[i])
+				error = np.dot(y, log_output)+np.dot((1-y), (1-log_output))
+				batch_error += error
 
 
-			print "Classified class: "+str(classification)+". Actual is: "+str(page[1]-1)
-			print str(a3) + "              "+ str(y)
-			if classification == (page[1]-1):
-				print "                                                                           Correct"
+				print "Classified class: "+str(classification)+". Actual is: "+str(page[1]-1)
+				print str(a3) + "              "+ str(y)
+				if classification == (page[1]-1):
+					print "                                                                           Correct"
 
-			#Computing layer errors from back prop 
-			a3_error += np.multiply((a3 - y),np.multiply(a3,(1-a3)))					#This is for sigmoid activation
-			#a3_error += np.multiply((a3 - y), ReLU_derivative(a3))
-			a2_error += np.multiply(np.dot(np.transpose(w3), a3_error),np.multiply(a2,(1-a2))) 
-			a1_error += np.multiply(np.dot(np.transpose(w2), a2_error),np.multiply(a1,(1-a1)))
+				#Computing layer errors from back prop 
+				a3_error += np.multiply((a3 - y),np.multiply(a3,(1-a3)))					#This is for sigmoid activation
+				#a3_error += np.multiply((a3 - y), ReLU_derivative(a3))
+				a2_error += np.multiply(np.dot(np.transpose(w3), a3_error),np.multiply(a2,(1-a2))) 
+				a1_error += np.multiply(np.dot(np.transpose(w2), a2_error),np.multiply(a1,(1-a1)))
 
-		#Computing weight updates
-		partial_derive_w1 = np.dot(a1_error.reshape(200,1), input_array.reshape(1,len(input_array)))
-		partial_derive_w2 = np.dot(a2_error.reshape(20,1), a1.reshape(1,200))
-		partial_derive_w3 = np.dot(a3_error.reshape(7,1), a2.reshape(1,20))
+			#Computing weight updates
+			partial_derive_w1 = np.dot(a1_error.reshape(200,1), input_array.reshape(1,len(input_array)))
+			partial_derive_w2 = np.dot(a2_error.reshape(20,1), a1.reshape(1,200))
+			partial_derive_w3 = np.dot(a3_error.reshape(7,1), a2.reshape(1,20))
 		
-		#print partial_derive_w1
-		#print "#######################################################################################################"
-		#print partial_derive_w2
-		#print "*******************************************************************************************************"
-		#print partial_derive_w3
-		#print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+			#print partial_derive_w1
+			#print "#######################################################################################################"
+			#print partial_derive_w2
+			#print "*******************************************************************************************************"
+			#print partial_derive_w3
+			#print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
 
-		#Update weights with gradient descent
-		w1 -= (learning_rate/batch_size)*partial_derive_w1 #+ (regularization_rate*w1)
-		w2 -= (learning_rate/batch_size)*partial_derive_w2 #+ (regularization_rate*w2)
-		w3 -= (learning_rate/batch_size)*partial_derive_w3 #+ (regularization_rate*w3)
+			#Update weights with gradient descent
+			w1 -= (learning_rate/batch_size)*partial_derive_w1 #+ (regularization_rate*w1)
+			w2 -= (learning_rate/batch_size)*partial_derive_w2 #+ (regularization_rate*w2)
+			w3 -= (learning_rate/batch_size)*partial_derive_w3 #+ (regularization_rate*w3)
 		
-		print "Updated weights"
-
-	
-	regularizer = np.sum(np.power(w1,2)) + np.sum(np.power(w2,2)) + np.sum(np.power(w3,2))
-	#j = (-1/len(page) * batch_error) + ((regularization_rate/(2*len(page)))*regularizer)
+			print "Updated weights"
+	print "End train"
 
 	
-
-
-
-#w1_update += input_array*(np.linalg.norm(a3 - y))
-		#w2_update += a1*(np.linalg.norm(a3 - y))
-		#w3_update += a2*(np.linalg.norm(a3 - y))
 if __name__ == '__main__':
     main()
