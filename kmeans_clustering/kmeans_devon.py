@@ -7,10 +7,27 @@ import datetime
 import time
 import matplotlib.patches as patches
 import gmpy2
+import logging
 from sklearn.decomposition import PCA
 
+# set up logging to file - see previous section for more details
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                    datefmt='%m-%d %H:%M',
+                    filename='logs/kmeans_devon_' + str(datetime.datetime.now()) + '.log',
+                    filemode='w')
+# define a Handler which writes INFO messages or higher to the sys.stderr
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+# set a format which is simpler for console use
+formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
+# tell the handler to use this format
+console.setFormatter(formatter)
+# add the handler to the root logger
+logging.getLogger('').addHandler(console)
+
 def remove_words():
-	print("before removing: " + str(len(book_words[3])))
+	logging.info("before removing: " + str(len(book_words[3])))
 	thresh = 0.4 * math.pow(10,-5)
 	for book_num,words in enumerate(book_words):
 		temp_dict = {}
@@ -56,7 +73,7 @@ def remove_words():
 				if word in book_words_count[i]:
 					del book_words_count[i][word]
 
-	print("after removing: " + str(len(book_words[3])))
+	logging.info("after removing: " + str(len(book_words[3])))
 
 def encodeToAxis(word_list):
 	word_values = [1]
@@ -113,7 +130,7 @@ def page_value(page, book_num):
 	return p_value
 
 def pca():
-	print "starting pca"
+	logging.info("starting pca")
 	mat = []
 	count = 0
 	for pages in book_pages:
@@ -130,11 +147,11 @@ def pca():
 			mat += [np.array(page_arr)]
 	cov_mat = np.cov(np.array(mat).T)
 
-	print cov_mat.shape
+	logging.info(cov_mat.shape)
 	
 	w, v = np.linalg.eig(cov_mat)
-	print w
-	print w.shape
+	logging.info(w)
+	logging.info(w.shape)
 
 	plt.hist(np.array(w).real, bins='auto')
 	plt.show()
@@ -184,7 +201,7 @@ for words in book_words_count:
 		else:
 			sum_of_words[word] += words[word]
 
-print("total words left from all books " + str(len(sum_of_words)))
+logging.info("total words left from all books " + str(len(sum_of_words)))
 """
 #random.seed(time.time())
 final_words = sum_of_words.keys()
@@ -215,13 +232,13 @@ y_values = encodeToAxis(y_words)
 book_pages = []
 for book in data_files:
 	book_pages.append(book_to_pages(book, PARA_PER_PAGE))
-print "amount of pages: " + str(len([page for book in book_pages for page in book]))
+logging.info("amount of pages: " + str(len([page for book in book_pages for page in book])))
 
 #get value for each page
 page_values = [[] for i in range(NUM_OF_BOOKS)]
 
 for book_num, pages in enumerate(book_pages):
-	print book_num
+	logging.info(book_num)
 	for page in pages:
 		#value = page_value(page)
 		page_values[book_num].append(page_value(page, book_num))
@@ -253,7 +270,7 @@ pca.fit(np.array(X))
 print pca._values_
 """
 #############################################################################################################
-print "starting kmeans"
+logging.info("starting kmeans")
 point_colors = ["cyan","green","red","yellow","grey","magenta","navy"]
 center_colors = ["aquamarine", "beige", "lime", "purple", "sienna", "pink", "orange"]
 
@@ -266,17 +283,18 @@ for i,values in enumerate(page_values):
 		value_x[i].append(value[0])
 		value_y[i].append(value[1])
 """
-print "initializing centers"
+logging.info("initializing centers")
 centers = [[random.uniform( \
 				(max([page_value[j] for book_values in page_values for page_value in book_values]) + min([page_value[j] for book_values in page_values for page_value in book_values]))/2,\
 				3 * (max([page_value[j] for book_values in page_values for page_value in book_values]) + min([page_value[j] for book_values in page_values for page_value in book_values]))/4\
 			) for j in range(len(sum_of_words))] for i in range(k)]
-print "centers initialized"
+
+logging.info("centers initialized")
 curr_clusters = [[] for i in range(k)]
 is_same = False
 epoch = 0
 while(True):
-	print "starting epoch " + str(epoch)
+	logging.info("starting epoch " + str(epoch))
 	old_clusters = curr_clusters
 	curr_clusters = [[] for i in range(k)]
 
@@ -320,14 +338,14 @@ while(True):
 		if not cluster == []:
 			centers[num] = [val / len(cluster) for val in cluster_sum]
 		else:
-			print "cluster " + str(num) + " is empty"
+			logging.info("cluster " + str(num) + " is empty")
 	
-	print "---------------------- epoch " + str(epoch) + " ----------------------------"
+	logging.info("---------------------- epoch " + str(epoch) + " ----------------------------")
 	for cluster_num, cluster in enumerate(curr_clusters):
 		book_count = [0 for i in range(NUM_OF_BOOKS)]
 		for page in cluster:
 			book_count[page[1]] += 1
-		print "cluster " + str(cluster_num) + " book_count: " + str(book_count)
+		logging.info("cluster " + str(cluster_num) + " book_count: " + str(book_count))
 
 	epoch += 1
 		
