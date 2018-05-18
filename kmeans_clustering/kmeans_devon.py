@@ -131,6 +131,7 @@ def page_value(page, book_num):
 
 def pca():
 	logging.info("starting pca")
+	"""
 	mat = []
 	count = 0
 	for pages in book_pages:
@@ -146,19 +147,27 @@ def pca():
 			#print page_arr
 			mat += [np.array(page_arr)]
 	cov_mat = np.cov(np.array(mat).T)
+	"""
+	mat = [np.array(value) for book_values in page_values for value in book_values]
+	cov_mat = np.cov(np.array(mat).T)
+		
 
 	logging.info(cov_mat.shape)
 	
 	w, v = np.linalg.eig(cov_mat)
-	logging.info(w)
-	logging.info(w.shape)
+	small_w = [a for a in np.array(w).real if a != 0]
+	logging.info(np.array(small_w))
+	logging.info(np.array(small_w).shape)
 
-	plt.hist(np.array(w).real, bins='auto')
+	logging.info("plotting pca...")
+	plt.plot(range(len(small_w)), small_w, "ro")
+	#plt.hist(small_w, bins='auto')
 	plt.show()
 
 NUM_OF_BOOKS = 7
 PARA_PER_PAGE = 5
-k = 20#NUM_OF_BOOKS
+k = 37#NUM_OF_BOOKS
+do_pca = False
 random.seed(time.time())
 logging.info("NUM_OF_BOOKS: " + str(NUM_OF_BOOKS) )
 logging.info("PARA_PER_PAGE: " + str(PARA_PER_PAGE) )
@@ -263,7 +272,8 @@ for book_values in page_values:
 		if value[1] > max_y:
 			max_y = value[1]
 """
-#pca();
+if do_pca:
+	pca();
 """
 pca_func = PCA()
 X = []
