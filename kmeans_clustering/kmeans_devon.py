@@ -151,27 +151,26 @@ def pca():
 	mat = [np.array(value) for book_values in page_values for value in book_values]
 	cov_mat = np.cov(np.array(mat).T)
 		
-
-	logging.info(cov_mat.shape)
-	
 	w, v = np.linalg.eig(cov_mat)
 	small_w = [a for a in np.array(w).real if a != 0]
-	logging.info(np.array(small_w))
-	logging.info(np.array(small_w).shape)
+	comulative_small_w = [sum(small_w[i:]) for i in range(len(small_w))]
 
 	logging.info("plotting pca...")
 	plt.plot(range(len(small_w)), small_w, "ro")
+	plt.plot(range(len(small_w)), comulative_small_w, "go")
 	#plt.hist(small_w, bins='auto')
 	plt.show()
 
 NUM_OF_BOOKS = 7
-PARA_PER_PAGE = 20
-k = 4#NUM_OF_BOOKS
+PARA_PER_PAGE = 1
+k = 7 #NUM_OF_BOOKS
+do_remove = True
 do_pca = False
 random.seed(time.time())
 logging.info("NUM_OF_BOOKS: " + str(NUM_OF_BOOKS) )
 logging.info("PARA_PER_PAGE: " + str(PARA_PER_PAGE) )
 logging.info("k: " + str(k) )
+logging.info("remove words: " + str(do_remove) )
 
 data_files = [open("../txts/HP" + str(i) + ".txt", "r") for i in range(1,8)]
 
@@ -203,8 +202,8 @@ for book_num,words in enumerate(book_words):
 	for word in words:
 		book_words[book_num][word] /= (words_per_book[book_num]*1.0)
 
-
-remove_words();
+if do_remove:
+	remove_words()
 
 sum_of_words = {}
 for words in book_words_count:
