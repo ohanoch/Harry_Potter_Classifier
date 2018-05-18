@@ -1,0 +1,324 @@
+Page size: 1 paragraphs
+Num Training Lines: 2822
+Num Testing Cases:	943
+Num Validation Cases:	942
+Words Used for Classifying:	81
+numNeccesary:	3
+upperThreshold:	0.039625
+lowerThreshold:	0.014125
+Words:		many	straight	near	except	parvati	banquet	arrows	hour	forest	yeh’ll	signature	sorry	real	shaped	couldn’t	dursley	watched	placed	sickle	eaten	food	tarts	troops	owner	wood’s	justin	drooble’s	fewer	weighing	powdered	spider	joke	prophet	licking	rivers	fouls	parchment	denying	badger	dreamily	innocent	whacked	gleam	spread-eagled	patrick	bigheaded	sugared	mug	solved	squarely	groaning	scrunched	wrinkling	boos	crazy	rustled	lupin	reproachful	trial	boars	scary	originator	squeaky	black’s	beheading	thunderstorms	bobbed	injuries	ease	barty	viktor	greet	souvenirs	tumult	apparent	madame	delegations	umbridge	luna	slughorn	horcrux
+Percentage Validation Correct:	0.297985153765
+Percentage Correct:	24.3902439024
+Percentage Buffered:	48.6744432662
+Percentage Incorrect:	75.6097560976
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	7	|	15	|	10	|	16	|	21	|	8	|	11
+2 	|	4	|	6	|	14	|	19	|	15	|	15	|	17
+3 	|	8	|	6	|	29	|	15	|	21	|	7	|	19
+4 	|	2	|	0	|	1	|	30	|	16	|	14	|	9
+5 	|	35	|	40	|	37	|	53	|	119	|	66	|	93
+6 	|	14	|	8	|	7	|	20	|	21	|	28	|	10
+7 	|	0	|	1	|	0	|	9	|	8	|	8	|	11
+
+
+Page size: 2 paragraphs
+Num Training Lines: 1411
+Num Testing Cases:	472
+Num Validation Cases:	472
+Words Used for Classifying:	67
+numNeccesary:	5
+upperThreshold:	0.0436875
+lowerThreshold:	0.01075
+Words:		suddenly	’undred	yeh	we’re	mugs	needle	garlic	snape’s	how’s	heaven	lines	blue	jam	protective	duddy’s	bitterness	self-satisfied	polyjuice	harm	lawn	sympathetically	source	announcement	lightened	considerably	descendant	impact	assistance	traipsed	gaps	footed	who’ll	redoubled	dementors	injuries	wangle	fizz	moony	approach	arrogant	cedric	strip	thorough	bagman	ludo	madame	maxime	moody’s	task	champions	krum	viktor	beauxbatons	durmstrang	triwizard	karkaroff	rita	skeeter	cedric’s	winky	umbridge	umbridge’s	slughorn	slughorn’s	horcrux	horcruxes	locket
+Percentage Validation Correct:	0.364406779661
+Percentage Correct:	37.0762711864
+Percentage Buffered:	53.813559322
+Percentage Incorrect:	62.9237288136
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	22	|	14	|	15	|	19	|	30	|	10	|	16
+2 	|	0	|	4	|	3	|	3	|	3	|	2	|	5
+3 	|	0	|	0	|	11	|	1	|	10	|	4	|	7
+4 	|	1	|	0	|	0	|	44	|	7	|	3	|	10
+5 	|	12	|	18	|	20	|	14	|	60	|	34	|	27
+6 	|	0	|	2	|	0	|	0	|	0	|	16	|	2
+7 	|	0	|	0	|	0	|	0	|	1	|	4	|	18
+
+
+Page size: 3 paragraphs
+Num Training Lines: 939
+Num Testing Cases:	317
+Num Validation Cases:	315
+Words Used for Classifying:	84
+numNeccesary:	2
+upperThreshold:	0.0705
+lowerThreshold:	0.009
+Words:		lying	roars	strange	sleep	results	word	december	uses	pages	devon	mrs	strongly	hung	enclosed	disgruntled	burn	eclairs	fan	hocus-pocus	hills	elastic	vanish	thunderous	require	fainted	fix	embrace	victim	guessed	w-what’s	soggy	emitted	chill	unbelievablel	curved	sealed	fang’s	closing	pomfrey’s	plumbing	fudge	champion	dementors	pettigrew	lupin	hogsmeade	dementor	patronus	tournament	black’s	firebolt	lupin’s	wormtail	crookshanks	buckbeak	merely	cedric	diggory	cho	eaters	triwizard	eater	moody	moody’s	madame	maxime	champions	karkaroff	viktor	krum	tent	skeeter	durmstrang	fleur	bagman	beauxbatons	ludo	luna	umbridge	umbridge’s	locket	slughorn	horcruxes	horcrux
+Percentage Validation Correct:	0.552050473186
+Percentage Correct:	49.5268138801
+Percentage Buffered:	67.5078864353
+Percentage Incorrect:	50.4731861199
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	14	|	9	|	2	|	5	|	11	|	4	|	11
+2 	|	1	|	3	|	1	|	1	|	1	|	3	|	0
+3 	|	0	|	1	|	23	|	3	|	3	|	0	|	6
+4 	|	0	|	1	|	1	|	30	|	5	|	3	|	2
+5 	|	8	|	12	|	5	|	9	|	52	|	13	|	15
+6 	|	0	|	0	|	0	|	1	|	0	|	15	|	3
+7 	|	1	|	0	|	1	|	5	|	2	|	11	|	20
+
+
+Page size: 4 paragraphs
+Num Training Lines: 705
+Num Testing Cases:	239
+Num Validation Cases:	236
+Words Used for Classifying:	52
+numNeccesary:	4
+upperThreshold:	0.0845
+lowerThreshold:	0.011
+Words:		chocolate	hagrid	hooked	ter	yeh	gathered	rolled	addressed	surprise	tickets	enjoyed	january	begun	repotting	rotter	dance	morale-	store	gullible	mortlake	tipping	charming-	cords	wrench	clung	anguished	vanquish	regulation	semidarkness	cuppa	olympe	log	flamed	blasting	installments	parvati’s	antennae	blackmailing	ludo	blue-white	durmstrang	chatting	beauxbatons	mending	delegations	umbridge	luna	umbridge’s	slughorn	horcruxes	horcrux	locket
+Percentage Validation Correct:	0.380753138075
+Percentage Correct:	30.5439330544
+Percentage Buffered:	52.719665272
+Percentage Incorrect:	69.4560669456
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	12	|	6	|	13	|	10	|	9	|	8	|	8
+2 	|	0	|	2	|	2	|	3	|	4	|	0	|	3
+3 	|	1	|	4	|	0	|	4	|	1	|	3	|	4
+4 	|	1	|	3	|	1	|	11	|	4	|	2	|	1
+5 	|	4	|	4	|	8	|	11	|	31	|	10	|	15
+6 	|	0	|	0	|	1	|	1	|	2	|	9	|	4
+7 	|	0	|	0	|	0	|	1	|	5	|	5	|	8
+
+
+Page size: 5 paragraphs
+Num Training Lines: 563
+Num Testing Cases:	192
+Num Validation Cases:	188
+Words Used for Classifying:	56
+numNeccesary:	4
+upperThreshold:	0.0959375
+lowerThreshold:	0.0134375
+Words:		library	whimpering	room	rat	discovery	darkly	weirdest	jam	bathrobes	basilisk	t-took	squeezing	jerking	chill	whipping	perfume	remove	class’s	hannah	require	mudblood’s	who’ll	deranged	untied	illegally	wetter	imprinted	senseless	tacked	viktor	seventeen	soothing	fleur	resolutely	delegation	extending	madame	shawls	barty	swoop	gravely	oi	hexes	judges	delegations	tonks	kingsley	umbridge	luna	umbridge’s	prophecy	bellatrix	prince	slughorn	horcrux	horcruxes
+Percentage Validation Correct:	0.432291666667
+Percentage Correct:	36.9791666667
+Percentage Buffered:	55.2083333333
+Percentage Incorrect:	63.0208333333
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	4	|	2	|	0	|	4	|	3	|	3	|	1
+2 	|	1	|	2	|	0	|	6	|	1	|	6	|	3
+3 	|	6	|	6	|	10	|	10	|	6	|	6	|	8
+4 	|	0	|	0	|	1	|	3	|	1	|	0	|	1
+5 	|	3	|	6	|	9	|	8	|	31	|	3	|	9
+6 	|	0	|	0	|	0	|	0	|	0	|	11	|	2
+7 	|	0	|	0	|	0	|	2	|	3	|	1	|	10
+
+
+Page size: 6 paragraphs
+Num Training Lines: 470
+Num Testing Cases:	160
+Num Validation Cases:	157
+Words Used for Classifying:	83
+numNeccesary:	3
+upperThreshold:	0.097
+lowerThreshold:	0.017
+Words:		but	meet	worry	ham	glittery-	carried	cakes	minded	flamel	hide	yesterday	daily	naturally	riffraff	prodded	tickets	levels	shuddering	flaking	smudges	scum	could’ve	mudbloods	amusing	disappoint	miranda	vampires	blushing	fresh	surge	dreadful	’ve	magenta	writhing	thunderstorms	apprehensive	lupin	register	smuggled	padfoot	shunned	isolated	buckbeak	profile	’e’s	applauding	connection	bent-backed	wan’	unbidden	gits	ludo	durmstrang	viktor	krum	task	moody’s	karkaroff’s	karkaroff	madame	maxime	eaters	cedric’s	triwizard	fleur	beauxbatons	bertha	skrewts	rita	champions	eater	tournament	champion	umbridge	umbridge’s	luna	prophecy	grimmauld	prince	slughorn	horcruxes	locket	horcrux
+Percentage Validation Correct:	0.4375
+Percentage Correct:	41.25
+Percentage Buffered:	56.25
+Percentage Incorrect:	58.75
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	9	|	12	|	13	|	10	|	16	|	6	|	9
+2 	|	1	|	0	|	1	|	1	|	1	|	0	|	0
+3 	|	0	|	0	|	2	|	1	|	1	|	0	|	0
+4 	|	0	|	0	|	0	|	14	|	1	|	0	|	1
+5 	|	2	|	0	|	1	|	0	|	12	|	1	|	1
+6 	|	0	|	0	|	0	|	0	|	0	|	11	|	0
+7 	|	0	|	1	|	0	|	1	|	6	|	7	|	18
+
+
+Page size: 7 paragraphs
+Num Training Lines: 403
+Num Testing Cases:	137
+Num Validation Cases:	135
+Words Used for Classifying:	43
+numNeccesary:	3
+upperThreshold:	0.1695625
+lowerThreshold:	0.04075
+Words:		story	stone’s	nostrils	hanging	enchantments	asking	tower	foul	prophet	gringotts	hagrid’s	bill’s	cleared	lockhart’s	pests	lengths	skirting	second-year	cool	scrunched	gunshot	bent-backed	bobbed	taunt	convulsively	expressionless	darkening	unbidden	thunderstorms	unnerved	summoning	cauldron-bottom	krum’s	ludo	bagman	madame	palace	shielding	umbridge	umbridge’s	slughorn	horcrux	horcruxes
+Percentage Validation Correct:	0.430656934307
+Percentage Correct:	29.197080292
+Percentage Buffered:	52.5547445255
+Percentage Incorrect:	70.802919708
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	3	|	3	|	4	|	8	|	7	|	4	|	5
+2 	|	2	|	2	|	4	|	2	|	3	|	0	|	3
+3 	|	0	|	0	|	0	|	0	|	1	|	0	|	0
+4 	|	0	|	1	|	1	|	7	|	3	|	0	|	4
+5 	|	5	|	4	|	5	|	7	|	16	|	7	|	6
+6 	|	0	|	0	|	0	|	0	|	0	|	7	|	2
+7 	|	0	|	1	|	0	|	0	|	2	|	3	|	5
+
+
+Page size: 8 paragraphs
+Num Training Lines: 353
+Num Testing Cases:	122
+Num Validation Cases:	118
+Words Used for Classifying:	64
+numNeccesary:	4
+upperThreshold:	0.14675
+lowerThreshold:	0.04425
+Words:		forbidden	you’d	rubbish	disgruntled	heave	shadows	grab	slam	realized	win	breathlessly	west	cheers	howls	frying	yesterday	tomatoes	croaked	beast’s	claws	chewing	ward	wailed	doughnuts	glittering	crazy	gnome	stack	photograph	obscured	reputation	edges	preserved	contracted	banshee	outstrips	magenta	velvety	unbelievablel	pomfrey’s	nudging	apprehensive	cedric	sirius	war	wisely	bobbed	injuries	waspishly	viktor	jorkins	inspiration	cho’s	songs	ludo	madame	sonny	emerald-green	umbridge	umbridge’s	slughorn	slughorn’s	horcrux	locket
+Percentage Validation Correct:	0.483606557377
+Percentage Correct:	39.3442622951
+Percentage Buffered:	55.737704918
+Percentage Incorrect:	60.6557377049
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	3	|	6	|	3	|	2	|	8	|	1	|	5
+2 	|	1	|	0	|	0	|	2	|	3	|	0	|	2
+3 	|	2	|	0	|	5	|	4	|	2	|	2	|	1
+4 	|	0	|	0	|	0	|	6	|	0	|	1	|	0
+5 	|	2	|	1	|	4	|	3	|	14	|	1	|	3
+6 	|	1	|	0	|	0	|	1	|	0	|	10	|	1
+7 	|	0	|	3	|	1	|	3	|	1	|	4	|	10
+
+
+Page size: 9 paragraphs
+Num Training Lines: 313
+Num Testing Cases:	107
+Num Validation Cases:	105
+Words Used for Classifying:	57
+numNeccesary:	4
+upperThreshold:	0.147
+lowerThreshold:	0.033
+Words:		glared	sight	bad	dudley’s	written	reciting	cozy	binoculars	percy’s	velvety	teaching	champion	froze	flicker	shining	enchanting	enjoyed	standard	travel	buckbeak	dementor	black’s	lupin’s	cedric	diggory	tournament	bagman	crouch	ludo	moody	moody’s	triwizard	beauxbatons	durmstrang	champions	cedric’s	karkaroff	task	fleur	krum	viktor	rita	skeeter	madame	maxime	umbridge’s	umbridge	tonks	luna	prophecy	locket	potion-making	horcrux	slughorn	horcruxes	prince	slughorn’s
+Percentage Validation Correct:	0.588785046729
+Percentage Correct:	55.1401869159
+Percentage Buffered:	65.4205607477
+Percentage Incorrect:	44.8598130841
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	5	|	3	|	2	|	1	|	4	|	5	|	1
+2 	|	0	|	1	|	2	|	0	|	0	|	3	|	0
+3 	|	1	|	0	|	6	|	0	|	1	|	0	|	1
+4 	|	0	|	0	|	0	|	16	|	0	|	0	|	2
+5 	|	2	|	3	|	1	|	1	|	18	|	3	|	6
+6 	|	0	|	1	|	0	|	0	|	0	|	4	|	0
+7 	|	0	|	1	|	0	|	0	|	2	|	2	|	9
+
+
+Page size: 10 paragraphs
+Num Training Lines: 280
+Num Testing Cases:	97
+Num Validation Cases:	95
+Words Used for Classifying:	59
+numNeccesary:	5
+upperThreshold:	0.125
+lowerThreshold:	0.03
+Words:		sprout’s	somebody	anti-dark	smelled	families	relatives	seventh	piercing	imagination	vaguely	scratched	u-bend	fuming	unconvinced	mudbloodsv	closing	returned	smirked	who’ll	hangman’s	leads	advisable	madness	evenly	lunacy	members	persuasion	gravestone	momentary	bagman’s	yellow-toothed	bubbly	unfolded	cow	krum	uninjured	socket	trampling	maxime	applauded	eau	jogging	discreet	reduction	ruler	hungarian	congregated	umbridge	burdens	substantive	kingsley	locket	horcrux	slughorn’s	slughorn	felix	felicis	horcruxes	elder
+Percentage Validation Correct:	0.40206185567
+Percentage Correct:	40.206185567
+Percentage Buffered:	56.7010309278
+Percentage Incorrect:	59.793814433
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	3	|	1	|	4	|	4	|	2	|	2	|	0
+2 	|	0	|	1	|	1	|	2	|	3	|	2	|	3
+3 	|	0	|	1	|	0	|	0	|	1	|	0	|	0
+4 	|	0	|	0	|	2	|	7	|	0	|	0	|	1
+5 	|	2	|	4	|	3	|	3	|	15	|	5	|	3
+6 	|	0	|	0	|	0	|	0	|	0	|	5	|	2
+7 	|	2	|	1	|	0	|	1	|	2	|	1	|	8
+
+
+Page size: 11 paragraphs
+Num Training Lines: 257
+Num Testing Cases:	89
+Num Validation Cases:	86
+Words Used for Classifying:	55
+numNeccesary:	5
+upperThreshold:	0.185171875
+lowerThreshold:	0.07153125
+Words:		slowly	gliding	single	news	argue	cutting	daily	out-of-bounds	imagination	jam	warm	perfectly	fading	elastic	parentless	overtime	grangers	stops	half-dressed	remained	twirling	stumps	moldy-looking	guaranteed	amazing	flyaway	grade	champion	moody	crookshanks	lupin’s	dementor	cedric	diggory	black’s	tournament	krum	triwizard	karkaroff	bagman	ludo	task	champions	durmstrang	beauxbatons	madame	maxime	viktor	umbridge	umbridge’s	locket	slughorn’s	slughorn	horcruxes	horcrux
+Percentage Validation Correct:	0.573033707865
+Percentage Correct:	49.4382022472
+Percentage Buffered:	60.6741573034
+Percentage Incorrect:	50.5617977528
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	3	|	4	|	2	|	2	|	6	|	0	|	4
+2 	|	0	|	1	|	0	|	0	|	1	|	3	|	1
+3 	|	2	|	0	|	4	|	1	|	0	|	1	|	1
+4 	|	0	|	0	|	0	|	11	|	1	|	1	|	1
+5 	|	2	|	1	|	3	|	1	|	12	|	1	|	2
+6 	|	0	|	0	|	0	|	0	|	0	|	6	|	0
+7 	|	0	|	1	|	0	|	0	|	1	|	2	|	7
+
+
+Page size: 12 paragraphs
+Num Training Lines: 233
+Num Testing Cases:	83
+Num Validation Cases:	79
+Words Used for Classifying:	54
+numNeccesary:	2
+upperThreshold:	0.20825
+lowerThreshold:	0.028
+Words:		climbed	suddenly	school	students	sets	protective	hanging	brown	exercise	trifle	local	ringing	extinguished	vauxhall	arrested	hopeful	dance	routine	booster	self	frightens	stops	loss	awestruck	sword	task	lupin	sirius	dementors	dementor	black’s	hogsmeade	crookshanks	lupin’s	attempt	cedric	eaters	crouch	bagman	triwizard	tournament	karkaroff	krum	viktor	beauxbatons	durmstrang	moody’s	champions	luna	umbridge	locket	slughorn	horcrux	horcruxes
+Percentage Validation Correct:	0.566265060241
+Percentage Correct:	49.3975903614
+Percentage Buffered:	61.4457831325
+Percentage Incorrect:	50.6024096386
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	6	|	5	|	2	|	4	|	3	|	1	|	2
+2 	|	0	|	2	|	0	|	0	|	0	|	1	|	0
+3 	|	0	|	0	|	5	|	1	|	5	|	1	|	2
+4 	|	0	|	0	|	0	|	8	|	0	|	0	|	1
+5 	|	0	|	0	|	1	|	0	|	8	|	3	|	4
+6 	|	0	|	0	|	1	|	1	|	0	|	6	|	0
+7 	|	0	|	0	|	0	|	0	|	3	|	1	|	6
+
+
+Page size: 13 paragraphs
+Num Training Lines: 217
+Num Testing Cases:	76
+Num Validation Cases:	73
+Words Used for Classifying:	31
+numNeccesary:	4
+upperThreshold:	0.2187109375
+lowerThreshold:	0.0294765625
+Words:		break	tarts	twanging	procure	restorative	obscured	forcing	outline	ignited	who’ll	pettigrew	rehearsed	barty	gits	ludo	krum\	krum	krum’s	madame	comforts	scathingly	rumored	delegations	umbridge	luna	umbridge’s	locket	slughorn	horcrux	horcruxes	slughorn’s
+Percentage Validation Correct:	0.526315789474
+Percentage Correct:	44.7368421053
+Percentage Buffered:	56.5789473684
+Percentage Incorrect:	55.2631578947
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	0	|	1	|	4	|	2	|	2	|	0	|	1
+2 	|	1	|	1	|	2	|	1	|	2	|	0	|	3
+3 	|	0	|	0	|	0	|	0	|	1	|	0	|	1
+4 	|	0	|	0	|	0	|	8	|	0	|	0	|	1
+5 	|	0	|	0	|	0	|	0	|	9	|	0	|	1
+6 	|	5	|	4	|	2	|	2	|	2	|	11	|	2
+7 	|	0	|	0	|	0	|	0	|	1	|	1	|	5
+
