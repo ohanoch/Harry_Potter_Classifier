@@ -3,7 +3,7 @@ import math
 
 # Meir Rosendorff
 
-pageSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+pageSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]#, 11, 12, 13]
 startPoint = [2, 2, 3, 3, 5, 5, 5, 5.5, 6, 6, 6.5, 7, 7]
 for pageSize in pageSizes:
     # bookLines = []
@@ -23,7 +23,7 @@ for pageSize in pageSizes:
     alpha = 0.001*pageSize
 
     for i in range(numBooks):
-        bookFile = open("Books/HP" + str(i+1) + ".txt", "r")
+        bookFile = open("book" + str(i+1) + ".txt", "r")
         currBook = []
         line = bookFile.readline()
         count = 0
@@ -86,44 +86,41 @@ for pageSize in pageSizes:
         bookNum = int(trainingData[i][0])
         print "Page " + str(i+1) + " of " + str(numTrainingCases)
         for j in range(1,len(currPage),1): #start at 1 as pos 0 is the bookNumber
-
             numPerBook = [0.0]*numBooks #array to count how many times word appears per book
             word = currPage[j] #iterate over the words
             if word in words or word == "": #if the word is blank or its already been seen skip
                 continue
             else:
                 numPerBook[bookNum] += 1 #add one for the word we just read
-
+    
             for k in range(i+1, len(trainingData), 1): #iterate through the remaining pages checking for the word
                 if word in trainingData[k]:
                     currNum = int(trainingData[k][0])
                     numPerBook[currNum]+=1
-
+    
             words.append(word) # add the word to my word list
             probabilities = [0.0]*numBooks
             for k in range(numBooks):# calculate the probability for that word
                 probabilities[k] = (numPerBook[k]+1) / (bookPages[k] + numBooks)
             probabilityTable.append(probabilities)
-
-
-
+            
     # Save Probabilities to probabilities.txt
     # format is word P(book1) P(book2) ...
-
+    
     probabiltyFile = open("probabilitiesPS" + str(pageSize) + ".txt", "w")
-
+    
     for i in range(len(words)):
         line = words[i]
         for j in range(numBooks):
             line = line + " " + str(probabilityTable[i][j])
         line = line + "\n"
+
         probabiltyFile.write(line)
-
-    probabiltyFile.close()
-
+ #  	probabiltyFile.close()
+	'''
     # # read in from probability files
 
-    probFile = open("probabilitiesPS1.txt", "r")
+    probFile = open("probabilitiesPS" + str(pageSize) + ".txt", "r")
     words = []
     probabilityTable = []
     line = probFile.readline()
@@ -131,6 +128,10 @@ for pageSize in pageSizes:
     while line:
 
         probs = line.split(" ")
+        if not (len(probs)  == numBooks):
+        	continue
+        
+        print probs[0]	
         words.append(probs[0])
         probabilities = []
 
@@ -141,12 +142,12 @@ for pageSize in pageSizes:
         line = probFile.readline()
 
     #eliminate book numbers
-
+	
     for i in range(numBooks):
         pos = words.index(str(i))
         words.pop(pos)
-        probabilityTable.pop(i)
-
+        probabilityTable.pop(pos)
+	'''
     for numNeccesary in [1, 2, 3, 4, 5]:
         print "Num Necesary\t" + str(numNeccesary)
         # learn hyperparameters
