@@ -160,6 +160,10 @@ NUM_OF_BOOKS = 7
 PARA_PER_PAGE = 5
 k = 20#NUM_OF_BOOKS
 random.seed(time.time())
+logging.info("NUM_OF_BOOKS: " + str(NUM_OF_BOOKS) )
+logging.info("PARA_PER_PAGE: " + str(PARA_PER_PAGE) )
+logging.info("k: " + str(k) )
+
 data_files = [open("../txts/HP" + str(i) + ".txt", "r") for i in range(1,8)]
 
 book_words = [{} for i in range(NUM_OF_BOOKS)]
