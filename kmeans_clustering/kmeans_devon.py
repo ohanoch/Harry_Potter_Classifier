@@ -165,8 +165,8 @@ def pca():
 	plt.show()
 
 NUM_OF_BOOKS = 7
-PARA_PER_PAGE = 5
-k = 37#NUM_OF_BOOKS
+PARA_PER_PAGE = 20
+k = 4#NUM_OF_BOOKS
 do_pca = False
 random.seed(time.time())
 logging.info("NUM_OF_BOOKS: " + str(NUM_OF_BOOKS) )
