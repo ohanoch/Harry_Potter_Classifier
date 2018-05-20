@@ -196,7 +196,7 @@ PARA_PER_PAGE = 1
 k = 7 #NUM_OF_BOOKS
 do_remove = False
 check_hard_code = False
-do_pca = False
+do_pca = True
 random.seed(42)#time.time())
 logging.info("NUM_OF_BOOKS: " + str(NUM_OF_BOOKS) )
 logging.info("PARA_PER_PAGE: " + str(PARA_PER_PAGE) )

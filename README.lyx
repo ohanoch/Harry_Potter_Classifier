@@ -84,6 +84,17 @@
 
 \begin_layout Title
 Classifying Books By Writing Style Using Machine Learning Techniques
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This project was done within the frame of the machine learning course (COMS3007)
+ held at the University of the Witwatersrand in 2018
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Author
@@ -91,8 +102,19 @@ By:
 \begin_inset Newline newline
 \end_inset
 
-Or Hanoch (1501858), Devon Jarvis (1365149), Meir Rosendorff (1490527),
- Kimessha Paupamah (1038238)
+Or Hanoch (1501858)
+\begin_inset Newline newline
+\end_inset
+
+ Devon Jarvis (1365149)
+\begin_inset Newline newline
+\end_inset
+
+Meir Rosendorff (1490527)
+\begin_inset Newline newline
+\end_inset
+
+Kimessha Paupamah (1038238)
 \begin_inset Newline newline
 \end_inset
 
@@ -128,12 +150,8 @@ section{Introduction}
 \end_layout
 
 \begin_layout Standard
-This project is part of the machine learning course held in the University
- of the Witwatersrand and lectured by Dr.
- Benjamin Rosman.
- In this project we use different machine learning techniques learnt in
- the course to recognize which book, from a set of books, a given page is
- from.
+In this project we use different machine learning techniques learnt in the
+ course to recognize which book, from a set of books, a given page is from.
  In particular we were interested in doing this with the seven Harry Potter
  books in order to see if there is any distinguishable change in writing
  style as the series progressed.
@@ -152,7 +170,7 @@ k-Means clustering
 \end_layout
 
 \begin_layout Itemize
-Neural Networks.
+Neural Networks
 \end_layout
 
 \begin_layout Standard
@@ -166,7 +184,7 @@ c and not suiting this particular problem well.
 \end_layout
 
 \begin_layout Itemize
-Book1 - The Old Testament (God)
+Book1 - The Old Testament (Religion)
 \end_layout
 
 \begin_layout Itemize
@@ -178,7 +196,7 @@ Book3 - Lord of the Rings - all 3 books merged into 1 (Fantasy)
 \end_layout
 
 \begin_layout Itemize
-Book4 - Fifty Shades of Grey (Romantic porn)
+Book4 - Fifty Shades of Grey (Romance)
 \end_layout
 
 \begin_layout Itemize
@@ -186,7 +204,7 @@ Book5 - 1922 (Horror)
 \end_layout
 
 \begin_layout Itemize
-Book6 - Macbeth (Shakespeare)
+Book6 - Macbeth (Shakespearian Novel)
 \end_layout
 
 \begin_layout Itemize
@@ -225,7 +243,7 @@ We start off by splitting all the books into page sets (We will explain
  later how we optimized the `pageSetSize` which is the number of pages in
  a set).
  We then took around 20% of these from each book and set them aside for
- validation data which we used for training our hyperparameters, we set
+ validation data which we used for training our hyper-parameters, we set
  a further 20% aside for testing and the remaining 60% we used for training
  data.
  
@@ -1911,10 +1929,12 @@ k-Means clustering is a form of unsupervised learning that takes unlabeled
  force data points that appear like they should be in separate groups to
  mix if a low number of generated groups is chosen.
  This algorithm is done iteratively by grouping points around a center and
- then reinitializing the center according to the new points around it.
+ then reinitializing the center to be the average of the new points around
+ it.
  A problem that this algorithm has is the random initialization of the centers
- of the clusters before the iteration starts - thus it is important to run
- this algorithm multiple times in order to see consistent patterns.
+ of the clusters before the iteration starts may prohibit the algorithm
+ from finding optimal clusters by chance - thus it is important to run this
+ algorithm multiple times in order to see consistent patterns.
 \begin_inset Newline newline
 \end_inset
 
@@ -1924,7 +1944,7 @@ k-Means clustering is a form of unsupervised learning that takes unlabeled
 \begin_layout Standard
 We attempt to use the k-Means algorithm to see if there are any interesting
  patterns between the different Harry Potter books and to try to spot different
- instances that might have cause changes in the writing style.
+ instances that might have caused changes in the writing style.
  This is a test case for a more generic problem of analyzing text and finding
  patterns between different texts.
 \end_layout
@@ -1946,8 +1966,8 @@ name "subsec:kMeans-Data-Processing"
 
 \begin_layout Standard
 All the books we use are formatted to simple text files, with all the sentences
- directly after each other in a single line with pages being split up using
- new lines.
+ directly after each other in a single line and pages being split up using
+ new line characters.
  Each book is read in separately, and a dictionary of the words in the book
  is compiled, with each word having a value of the amount of times it appeared
  in the book.
@@ -1967,14 +1987,14 @@ All the books we use are formatted to simple text files, with all the sentences
 \begin_inset Newline newline
 \end_inset
 
-After normalizing in all of the books and creating dictionaries we sift
- through the dictionaries and keep only the words that appear only in any
- single book.
+After normalizing in all of the books and creating dictionaries we search
+ through the dictionaries and screen out the words that are not unique to
+ any single book.
  Within those words we also have a threshold of how common the word is (how
- big its value is) and only keep words whos values are above the threshold.
+ big its value is after normalization) and only keep words which have values
+ above the threshold.
  We keep the option to remove words, as well as the threshold of removing
- words, as hyper-parameters and experiment with and without removing (see
- section 
+ words, as hyper-parameters and experiment with both (see section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "par:kMeans-Removing-words"
@@ -1993,7 +2013,7 @@ We then took the books and merged the books pages together so that multiple
  pages would appear as a single page.
  This created books with fewer, longer, pages.
  The amount of pages we merged together was kept as a hyper-parameter we
- fine-tuned between different attempts (see section 
+ fine-tuned between different tests (see section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "par:kMeans-Pages-merged"
@@ -2002,13 +2022,13 @@ reference "par:kMeans-Pages-merged"
 
 ).
  After having our newly formatted books we took each page within each book
- and gave it a value within a world consisting of a dimension for each word
- that was left.
- The amount of dimensions in the world, which we will reference as N, relies
- on the words left after removing words, and as such relies on the threshold
- for removal of words, but is generally very large.
- Thus the value of a page was an N-tuple given by the amount of times a
- word represented by a dimension appeared in the page divided by the amount
+ and gave it a value within a domain consisting of N dimensions, one for
+ each word that was left in our dictionary.
+ The amount of dimensions in the domains, N, relies on the words left after
+ removing words, and as such relies on the threshold for removal of words,
+ but is generally very large.
+ The value of a page was an N-tuple given by the amount of times each word
+ (represented by a dimension) appeared in the page divided by the amount
  of words in the book.
  
 \end_layout
@@ -2022,7 +2042,7 @@ Note:
  page per page basis, as a single page doesn't necessarily consist all of
  the appearance of a single word.
  Thus we needed to normalize them separately and that is the reason for
- the division by the amount of words of the book of the page being given
+ the division by the amount of words of the book when a page is being given
  a value.
 \begin_inset Newline newline
 \end_inset
@@ -2051,7 +2071,7 @@ k
  in k-Means represents the amount of clusters we attempted to cluster our
  data to.
  This value was kept as a hyper-parameter and was fine-tuned between different
- attempts (see section 
+ tests (see section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "par:kmeans-k-hyperparameter"
@@ -2068,16 +2088,19 @@ reference "par:kmeans-k-hyperparameter"
 \begin_layout Standard
 The first thing we needed to do when starting the k-Means procedure was
  to randomize the centers of the initial clusters.
- With our first attempts we randomized the centers generally in the Nth
- dimensional world, where in each dimension it was located between the minimum
+ With our first attempts we randomized the centers in the N dimensional
+ domain, where in each dimension it was initialized between the minimum
  value given to any page on that dimension and the maximum value any page
  was given on that dimension.
  This produced a lot of centers that were centered in places where no pages
  were allocated for them, and there clusters were empty.
  Though this remained a problem throughout we managed to mitigate it to
- an extent by initializing the center points more in the middle of the world.
+ an extent by initializing the center points more in the center of the data
+ points.
  This was done by randomizing the location of each center in each dimension
  within an interval around the average of values of the pages in that dimension.
+ In hindsight we could have used a normal distribution to achieve this,
+ but we ended up hard coding limits for the centers manually.
 \begin_inset Newline newline
 \end_inset
 
@@ -2122,17 +2145,29 @@ Initialize clusters to be empty
 
 \begin_layout Plain Layout
 
-While(clusters have changed in last itteration):
+while(clusters have changed in last iteration) do
 \end_layout
 
 \begin_layout Plain Layout
 
-	For each page:
+	for each page do
 \end_layout
 
 \begin_layout Plain Layout
 
-		Check which cluster center is closest to page and assign it to that cluster
+		Check which cluster center is closest 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+			to page and assign it to that cluster
+\end_layout
+
+\begin_layout Plain Layout
+
+	end for
 \end_layout
 
 \begin_layout Plain Layout
@@ -2142,13 +2177,29 @@ While(clusters have changed in last itteration):
 
 \begin_layout Plain Layout
 
-	For each cluster center:
+	for each cluster center do
 \end_layout
 
 \begin_layout Plain Layout
 
-		Find the average of all the points in the cluster and set cluster center
- to it.
+		Change cluster center  to the average 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+			of all the points in the cluster.
+\end_layout
+
+\begin_layout Plain Layout
+
+	end for
+\end_layout
+
+\begin_layout Plain Layout
+
+end while
 \end_layout
 
 \end_inset
@@ -2222,11 +2273,11 @@ threshold for removing word =
 \end_layout
 
 \begin_layout Standard
-and change a single variable from this constellation for each round.
+and changed a single variable from this arrangement for each round.
  We do this with a constant random seed as to produce consistency.
  This may be problematic if this specific random seed is not particularly
- good, but we thought it was the least risky we could get for testing (especiall
-y since we chose 42 as the random seed).
+ good, but we thought it would mitigate the risk for testing (especially
+ since we chose 42 as the random seed).
 \end_layout
 
 \begin_layout Standard
@@ -2288,9 +2339,9 @@ Pages merged when reformatting
 \begin_layout Standard
 It is noticeable that increasing the pages being merged gives better results.
  This is presumably because if the newly formatted pages are larger then
- it is more likely that they contain a word from our dataset, and represents
- the book it came from better and will be located nearer to other pages
- from that book.
+ it is more likely that they contain a word from our dictionary, and represents
+ the book it came from better, as such it will be located nearer to other
+ pages from that book.
  We come to this conclusion from the following results:
 \end_layout
 
@@ -2342,8 +2393,8 @@ cluster 6 book_count: [1, 6, 46, 0, 0, 4, 0]
 \end_layout
 
 \begin_layout Standard
-We can clearly see that using a merge variable of 10 gives us more significant
- results then the baseline results that used a merge value of 1.
+We can clearly see that using a merge variable of 10 gives us more meaningful
+ results than the baseline results that used a merge value of 1.
  Since we have less total pages to assess we lose some of the precision
  in our results, but certain patterns can be more easily observed.
 \end_layout
@@ -2375,8 +2426,8 @@ k - The amount of clusters to use
 \begin_layout Standard
 Using a low value of k limits the amount of information we can get from
  our clustering, as there is less room for movement between clusters.
- On the other hand more clusters can make the results seem random or just
- weird.
+ On the other hand more clusters can make the results seem random or otherwise
+ illogical.
  This could be caused by a cluster of pages that should clearly be together
  getting split into multiple clusters because multiple cluster centers were
  initialized near the points of all of those pages.
@@ -2384,28 +2435,32 @@ Using a low value of k limits the amount of information we can get from
 
 \begin_layout Standard
 That being said, an advantage of more clusters could be that you can end
- up having more random centers not initially located in the middle of nowhere,
- where they never get any pages in there clusters.
+ up having more random centers not initially located where they never get
+ any pages in there clusters.
  This is a problem in our case in particular, as our domain space is very
- large and random cluster centers tend to get lost in the abyss.
- If we have a lot of cluster centers we can allow ourselves to have some
- clusters be empty, and only look at the ones that 
+ large and a few cluster centers tend to dominate the dataset and 
 \begin_inset Quotes eld
 \end_inset
 
-captured
+capture
 \begin_inset Quotes erd
 \end_inset
 
- pages into them.
- On the other side it takes longer to compute for more clusters.
+ all the pages.
+ More cluster centers will thus avoid dominant clusters from forming.
+ It should be noted that we will also end up with more empty clusters as
+ a result, but those can just be ignored, as well as the fact that it takes
+ longer to compute for more clusters.
 \end_layout
 
 \begin_layout Standard
 Ideally we would use 7 clusters and see the clusters split the books apart
- exactly, but this ended up not being the case, so we needed to start playing
- around with the amount of clusters.
- At the end of the day the correct amount of clusters is a balancing act.
+ exactly, but this was not the case.
+ Also in order to get meaningful information about similarities between
+ the books we would want different books to be clustered together in different
+ formations, and for that we might want to use less than 7 clusters.
+ At the end of the day the correct amount of clusters is a balancing act
+ depending on which type of information we hope to get from our data.
 \begin_inset Newline newline
 \end_inset
 
@@ -2545,11 +2600,11 @@ Mild improvements can be seen using k=20, but the computation took very
 \end_layout
 
 \begin_layout Standard
-We also hoped to be able to see similarities between books by forcing the
+We also hoped to be able to see similarities between books by forcing them
  to get clustered together when using a small k, but this did not end up
  happening.
- For the most part using a small k just made the clusters seem more random
- looking, and no clear distinctions could be made.
+ For the most part using a small k just made the clusters appear more random,
+ and no clear distinctions could be made.
 \end_layout
 
 \begin_layout Paragraph
@@ -2573,12 +2628,57 @@ Without removing words we are left with 20455 words, which will make for
 \end_layout
 
 \begin_layout Standard
-Our final results without removing words after ??? epochs are:
+Our final results without removing words after 91 epochs are:
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+cluster 0 book_count: [161, 97, 0, 0, 0, 1, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 1 book_count: [11, 11, 50, 405, 0, 572, 265]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 2 book_count: [37, 57, 344, 1, 3, 5, 4]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 3 book_count: [126, 201, 74, 0, 0, 0, 1]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 4 book_count: [6, 7, 11, 61, 568, 48, 88]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 5 book_count: [3, 2, 0, 0, 0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 6 book_count: [3, 2, 7, 342, 533, 102, 491]
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-We ended up removing words because we did not have time to run tests without
- removing words and we managed to get good results with removing words.
+For the remainder of the tests we did remove words because it took very
+ long to run a test without removing words which was not conducive for running
+ multiple tests.
+ However we still obtained meaningful results from tests while removing
+ words.
 \end_layout
 
 \begin_layout Paragraph
@@ -2586,21 +2686,24 @@ Removing words threshold
 \end_layout
 
 \begin_layout Standard
-We used a PCA to gather a benchmark of how many features, in our case words,
- should be kept.
- the following PCA graph was obtained when running on the dictionary of
- all unique words after removal of non-unique words (with a threshold of
- 0):
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Need PCA without removing words!!
-\end_layout
-
+After we screen the dictionary, to keep only words that are unique for a
+ single book, we also use a threshold for how common a word is in that book
+ to tell us whether we want to keep the word in the dictionary or remove
+ it.
+ If a word is unique, but its normalized value is less than the threshold
+ we consider it to be irrelevant for our purposes and remove it.
+\begin_inset Newline newline
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+We used a PCA to gather a benchmark of how many features, in our case words,
+ should be kept.
+ The following PCA graph was obtained when running on the dictionary of
+ all unique words after removal of non-unique words (with a threshold of
+ 0):
 \end_layout
 
 \begin_layout Standard
@@ -2621,19 +2724,42 @@ Since we have 8300 words after removing for unique words it wasn't possible
  left with thousands of words.
  Instead we plotted only the non-zero eigenvalues as separate points in
  a scatter plot.
- The eigenvalue are the red dots, for each value x value there is an eigenvalue,
+ The eigenvalue are the red dots, for each x-value there is an eigenvalue,
  and the scale is according to the percentage of effectiveness of that eigenvalu
 e.
  The green dots are the cumulative values of the eigenvalues to that point.
 \end_layout
 
 \begin_layout Standard
+We also tried to look at the PCA without removing words and got the following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename kmeans_clustering/images/pca_all_words.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can see that the values of all eigenvalues are roughly the same and all
+ very low, but accumulate because of the large number of them.
+ This supposedly means that all of the words are meaningful to the same
+ degree and should be kept, and was not very helpful to us.
+\end_layout
+
+\begin_layout Standard
 We can see that around the 500th eigenvalue we start to have significant
  stagnation, and after the 1500th eigenvalue we barely see any movement
  at all.
- Thus we aimed at running setting our threshold variable such that we would
- be left with 500 words and 1500 words to see results we would get, initially
- assuming that any more than 1500 words wont add any meaningful information.
+ Thus we aimed at testing while setting our threshold variable such that
+ we would be left with 500 words and 1500 words to see what results we would
+ get, initially assuming that any more than 1500 words wouldn't add any
+ meaningful information.
 \end_layout
 
 \begin_layout Subsection
@@ -2714,10 +2840,10 @@ cluster 6 book_count: [1, 6, 46, 0, 0, 4, 0]
 \end_layout
 
 \begin_layout Standard
-We can a clear distinction between books 1,2,3 and books 4,5,6,7 as only
- cluster 6 has both groups represented, and the amount there is nearly negligibl
-e.
- Furthermore we can see that book 5 is pretty distinguishable from books
+We can see a clear distinction between books 1,2,3 and books 4,5,6,7 as
+ only clusters 2 and 6 has both groups represented, and the contrary amount
+ there is nearly negligible.
+ Furthermore we can see that book 5 is relatively distinguishable from books
  4,6 and 7, as cluster 2 focuses primarily on book 5 and cluster 5 focuses
  primarily on books 4,6, and 7.
  We can also see from clusters 1,4 and 6 that book 3 is mostly distinguishable
@@ -2742,11 +2868,11 @@ It is interesting to see a clear gap between the first 3 books and the later
 \end_layout
 
 \begin_layout Subsection
-Benchmark dataset results
+Benchmark Dataset Results
 \end_layout
 
 \begin_layout Subsection
-Bad attempts
+First Attempt
 \end_layout
 
 \begin_layout Standard
@@ -2792,7 +2918,7 @@ choose a word from dictionary - give it a value of 1.
 
 \begin_layout Plain Layout
 
-for curr_word in dictionary:
+for curr_word in dictionary do
 \end_layout
 
 \begin_layout Plain Layout
@@ -2802,18 +2928,34 @@ for curr_word in dictionary:
 
 \begin_layout Plain Layout
 
-	for each word that already has a value:
+	for each word that already has a value do
 \end_layout
 
 \begin_layout Plain Layout
 
-		previous words values sum += word value * amount that word appeared in
- all books together
+		previous words values sum += 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+			word value * amount that word appeared in all books together
+\end_layout
+
+\begin_layout Plain Layout
+
+	end for
 \end_layout
 
 \begin_layout Plain Layout
 
 	curr_word = previous words values sum + 1
+\end_layout
+
+\begin_layout Plain Layout
+
+end for
 \end_layout
 
 \end_inset
@@ -2855,12 +2997,17 @@ hermione
 \end_inset
 
 ).
+ This is due to the fact that each word in the dictionary is larger than
+ the sum of all instances of all the words before it.
+ Thus given X words the sum of those words is larger than the largest word
+ in the input but smaller than any word with a larger value than that of
+ the largest word in the input.
 \end_layout
 
 \begin_layout Standard
 Another advantage of this was that by merely splitting up the initial dictionary
- into N parts we could run this algorithm on each part and thus get a representa
-tion of our data in N dimensions.
+ into N sub-dictionaries we could run this algorithm on each sub-dictionary
+ and thus get a representation of our data in any N dimensions we wanted.
 \begin_inset Newline newline
 \end_inset
 
@@ -2870,15 +3017,15 @@ tion of our data in N dimensions.
 \begin_layout Standard
 After some time of working with this algorithm for processing data we realized
  that this method either arranges the pages in a completely random way that
- can not be clustered in any meaningful way, or we can structure the data
+ cannot be clustered in any meaningful way, or we can structure the data
  in a way that predefines the pages in clusters - and thus any data we get
  is very biased and gives meaningless results.
  This is due to the nature of the values we give the words: what ends up
  happening is that when you give a value to a page for a dimension, this
- value will be in the interval of the value of the word with the largest
- value in the page and the value of the word that is the next largest in
- the dictionary of this dimension.
- Doing this for each dimension of the world would create 
+ value will be in between the value of the word with the largest value in
+ the page and the value of the word that is the next largest in the sub-dictiona
+ry of this dimension (as explained above).
+ Doing this for each dimension of the domain would create 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2886,7 +3033,7 @@ boxes
 \begin_inset Quotes erd
 \end_inset
 
- in the world that are exclusive to pages from a certain book.
+ in the domain that are exclusive to pages from a certain book.
  If we randomize the order of the words on each axis, these 
 \begin_inset Quotes eld
 \end_inset
@@ -2895,7 +3042,7 @@ boxes
 \begin_inset Quotes erd
 \end_inset
 
- would be located randomly on the board which essentially makes the world
+ would be located randomly on the board which essentially makes the domain
  look like white noise.
  If we order the way the words get their values on the axis (i.e.
  all words from book 1 get a smaller value than all those from book 2, etc.)
@@ -2921,6 +3068,20 @@ For the most part the results seem to show that differences between the
  This being said k-Means can also be very deceiving at times, and it is
  important to make sure that the data processing is done with care and does
  not introduce any biases.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+in hindsight it might have been better to use the standard deviasion to
+ intialize the centers
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

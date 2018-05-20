@@ -34,10 +34,13 @@
 
 \begin{document}
 
-\title{Classifying Books By Writing Style Using Machine Learning Techniques}
+\title{Classifying Books By Writing Style Using Machine Learning Techniques\thanks{This project was done within the frame of the machine learning course
+(COMS3007) held at the University of the Witwatersrand in 2018}}
 
 \author{By:\\
-Or Hanoch (1501858), Devon Jarvis (1365149), Meir Rosendorff (1490527),
+Or Hanoch (1501858)\\
+ Devon Jarvis (1365149)\\
+Meir Rosendorff (1490527)\\
 Kimessha Paupamah (1038238)\\
 Instructor:\\
 Dr. Benjamin Rosman}
@@ -46,19 +49,17 @@ Dr. Benjamin Rosman}
 \setcounter{section}{-1}
 \section{Introduction}
 
-This project is part of the machine learning course held in the University
-of the Witwatersrand and lectured by Dr. Benjamin Rosman. In this
-project we use different machine learning techniques learnt in the
-course to recognize which book, from a set of books, a given page
-is from. In particular we were interested in doing this with the seven
-Harry Potter books in order to see if there is any distinguishable
+In this project we use different machine learning techniques learnt
+in the course to recognize which book, from a set of books, a given
+page is from. In particular we were interested in doing this with
+the seven Harry Potter books in order to see if there is any distinguishable
 change in writing style as the series progressed.
 
 We used the following techniques:
 \begin{itemize}
 \item Naïve Bayes
 \item k-Means clustering
-\item Neural Networks.
+\item Neural Networks
 \end{itemize}
 We used these techniques on both the Harry Potter series of books
 and on a general benchmark set of 7 books from different genres. We
@@ -68,12 +69,12 @@ Rowling's change in writing over time or if it was due to our algorithms
 being problematic and not suiting this particular problem well. The
 benchmark set of books included: 
 \begin{itemize}
-\item Book1 - The Old Testament (God)
+\item Book1 - The Old Testament (Religion)
 \item Book2 - A Natural History of Ducks (History)
 \item Book3 - Lord of the Rings - all 3 books merged into 1 (Fantasy)
-\item Book4 - Fifty Shades of Grey (Romantic porn)
+\item Book4 - Fifty Shades of Grey (Romance)
 \item Book5 - 1922 (Horror)
-\item Book6 - Macbeth (Shakespeare)
+\item Book6 - Macbeth (Shakespearian Novel)
 \item Book7 - The Adventures of Sherlock Holmes (Crime/Detective)
 \end{itemize}
 The process and results are specified below.
@@ -94,7 +95,7 @@ they belong.
 We start off by splitting all the books into page sets (We will explain
 later how we optimized the `pageSetSize` which is the number of pages
 in a set). We then took around 20\% of these from each book and set
-them aside for validation data which we used for training our hyperparameters,
+them aside for validation data which we used for training our hyper-parameters,
 we set a further 20\% aside for testing and the remaining 60\% we
 used for training data. \\
 
@@ -315,26 +316,27 @@ be changed and thus create different groups and highlight different
 patterns, and even force data points that appear like they should
 be in separate groups to mix if a low number of generated groups is
 chosen. This algorithm is done iteratively by grouping points around
-a center and then reinitializing the center according to the new points
-around it. A problem that this algorithm has is the random initialization
-of the centers of the clusters before the iteration starts - thus
-it is important to run this algorithm multiple times in order to see
-consistent patterns.\\
+a center and then reinitializing the center to be the average of the
+new points around it. A problem that this algorithm has is the random
+initialization of the centers of the clusters before the iteration
+starts may prohibit the algorithm from finding optimal clusters by
+chance - thus it is important to run this algorithm multiple times
+in order to see consistent patterns.\\
 
 We attempt to use the k-Means algorithm to see if there are any interesting
 patterns between the different Harry Potter books and to try to spot
-different instances that might have cause changes in the writing style.
-This is a test case for a more generic problem of analyzing text and
-finding patterns between different texts.
+different instances that might have caused changes in the writing
+style. This is a test case for a more generic problem of analyzing
+text and finding patterns between different texts.
 
 \subsection{Methods}
 
 \subsubsection{Data Pre-Processing\label{subsec:kMeans-Data-Processing}}
 
 All the books we use are formatted to simple text files, with all
-the sentences directly after each other in a single line with pages
-being split up using new lines. Each book is read in separately, and
-a dictionary of the words in the book is compiled, with each word
+the sentences directly after each other in a single line and pages
+being split up using new line characters. Each book is read in separately,
+and a dictionary of the words in the book is compiled, with each word
 having a value of the amount of times it appeared in the book. We
 chose to make all of the words lower case, in order to prevent the
 same word appearing different when it was at the beginning of a sentence
@@ -345,32 +347,32 @@ represents (including duplicates of words in the book). This is done
 in order to not bias the data towards larger books. \\
 \\
 After normalizing in all of the books and creating dictionaries we
-sift through the dictionaries and keep only the words that appear
-only in any single book. Within those words we also have a threshold
-of how common the word is (how big its value is) and only keep words
-whos values are above the threshold. We keep the option to remove
-words, as well as the threshold of removing words, as hyper-parameters
-and experiment with and without removing (see section \ref{par:kMeans-Removing-words}).\\
+search through the dictionaries and screen out the words that are
+not unique to any single book. Within those words we also have a threshold
+of how common the word is (how big its value is after normalization)
+and only keep words which have values above the threshold. We keep
+the option to remove words, as well as the threshold of removing words,
+as hyper-parameters and experiment with both (see section \ref{par:kMeans-Removing-words}).\\
 \\
 We then took the books and merged the books pages together so that
 multiple pages would appear as a single page. This created books with
 fewer, longer, pages. The amount of pages we merged together was kept
-as a hyper-parameter we fine-tuned between different attempts (see
-section \ref{par:kMeans-Pages-merged}). After having our newly formatted
+as a hyper-parameter we fine-tuned between different tests (see section
+\ref{par:kMeans-Pages-merged}). After having our newly formatted
 books we took each page within each book and gave it a value within
-a world consisting of a dimension for each word that was left. The
-amount of dimensions in the world, which we will reference as N, relies
+a domain consisting of N dimensions, one for each word that was left
+in our dictionary. The amount of dimensions in the domains, N, relies
 on the words left after removing words, and as such relies on the
-threshold for removal of words, but is generally very large. Thus
-the value of a page was an N-tuple given by the amount of times a
-word represented by a dimension appeared in the page divided by the
-amount of words in the book. 
+threshold for removal of words, but is generally very large. The value
+of a page was an N-tuple given by the amount of times each word (represented
+by a dimension) appeared in the page divided by the amount of words
+in the book. 
 
 \textbf{Note:} The normalization we applied to the dictionaries is
 not applicable to a page per page basis, as a single page doesn't
 necessarily consist all of the appearance of a single word. Thus we
 needed to normalize them separately and that is the reason for the
-division by the amount of words of the book of the page being given
+division by the amount of words of the book when a page is being given
 a value.\\
 \\
 These final page values were used as points for the k-means algorithm
@@ -380,20 +382,22 @@ to try to cluster.
 
 The ``k'' in k-Means represents the amount of clusters we attempted
 to cluster our data to. This value was kept as a hyper-parameter and
-was fine-tuned between different attempts (see section \ref{par:kmeans-k-hyperparameter}).\\
+was fine-tuned between different tests (see section \ref{par:kmeans-k-hyperparameter}).\\
 
 The first thing we needed to do when starting the k-Means procedure
 was to randomize the centers of the initial clusters. With our first
-attempts we randomized the centers generally in the Nth dimensional
-world, where in each dimension it was located between the minimum
-value given to any page on that dimension and the maximum value any
-page was given on that dimension. This produced a lot of centers that
-were centered in places where no pages were allocated for them, and
-there clusters were empty. Though this remained a problem throughout
-we managed to mitigate it to an extent by initializing the center
-points more in the middle of the world. This was done by randomizing
-the location of each center in each dimension within an interval around
-the average of values of the pages in that dimension.\\
+attempts we randomized the centers in the N dimensional domain, where
+in each dimension it was initialized between the minimum value given
+to any page on that dimension and the maximum value any page was given
+on that dimension. This produced a lot of centers that were centered
+in places where no pages were allocated for them, and there clusters
+were empty. Though this remained a problem throughout we managed to
+mitigate it to an extent by initializing the center points more in
+the center of the data points. This was done by randomizing the location
+of each center in each dimension within an interval around the average
+of values of the pages in that dimension. In hindsight we could have
+used a normal distribution to achieve this, but we ended up hard coding
+limits for the centers manually.\\
 
 After initializing the centers we performed the following k-Means
 algorithm:
@@ -404,12 +408,17 @@ algorithm:
 
 \begin{lstlisting}
 Initialize clusters to be empty
-While(clusters have changed in last itteration):
-	For each page:
-		Check which cluster center is closest to page and assign it to that cluster
+while(clusters have changed in last iteration) do
+	for each page do
+		Check which cluster center is closest \
+			to page and assign it to that cluster
+	end for
 	
-	For each cluster center:
-		Find the average of all the points in the cluster and set cluster center to it.
+	for each cluster center do
+		Change cluster center  to the average \
+			of all the points in the cluster.
+	end for
+end while
 \end{lstlisting}
 \end{algorithm}
 
@@ -432,11 +441,11 @@ All of our tests were made with a baseline of
 \item removal = True
 \item threshold for removing word = $0.4\cdot10^{-5}$
 \end{itemize}
-and change a single variable from this constellation for each round.
+and changed a single variable from this arrangement for each round.
 We do this with a constant random seed as to produce consistency.
 This may be problematic if this specific random seed is not particularly
-good, but we thought it was the least risky we could get for testing
-(especially since we chose 42 as the random seed).
+good, but we thought it would mitigate the risk for testing (especially
+since we chose 42 as the random seed).
 
 The baseline gave us the following results after 42 epochs:
 \begin{lstlisting}
@@ -453,10 +462,10 @@ cluster 6 book_count: [92, 119, 69, 0, 0, 4, 4]
 
 It is noticeable that increasing the pages being merged gives better
 results. This is presumably because if the newly formatted pages are
-larger then it is more likely that they contain a word from our dataset,
-and represents the book it came from better and will be located nearer
-to other pages from that book. We come to this conclusion from the
-following results:
+larger then it is more likely that they contain a word from our dictionary,
+and represents the book it came from better, as such it will be located
+nearer to other pages from that book. We come to this conclusion from
+the following results:
 
 While using a merge variable of 10 (merging every 10 pages into a
 single page) gives us a result after 37 epochs of:
@@ -471,7 +480,7 @@ cluster 6 book_count: [1, 6, 46, 0, 0, 4, 0]
 \end{lstlisting}
 
 We can clearly see that using a merge variable of 10 gives us more
-significant results then the baseline results that used a merge value
+meaningful results than the baseline results that used a merge value
 of 1. Since we have less total pages to assess we lose some of the
 precision in our results, but certain patterns can be more easily
 observed.
@@ -489,23 +498,28 @@ use}
 Using a low value of k limits the amount of information we can get
 from our clustering, as there is less room for movement between clusters.
 On the other hand more clusters can make the results seem random or
-just weird. This could be caused by a cluster of pages that should
-clearly be together getting split into multiple clusters because multiple
-cluster centers were initialized near the points of all of those pages.
+otherwise illogical. This could be caused by a cluster of pages that
+should clearly be together getting split into multiple clusters because
+multiple cluster centers were initialized near the points of all of
+those pages.
 
 That being said, an advantage of more clusters could be that you can
-end up having more random centers not initially located in the middle
-of nowhere, where they never get any pages in there clusters. This
-is a problem in our case in particular, as our domain space is very
-large and random cluster centers tend to get lost in the abyss. If
-we have a lot of cluster centers we can allow ourselves to have some
-clusters be empty, and only look at the ones that ``captured'' pages
-into them. On the other side it takes longer to compute for more clusters.
+end up having more random centers not initially located where they
+never get any pages in there clusters. This is a problem in our case
+in particular, as our domain space is very large and a few cluster
+centers tend to dominate the dataset and ``capture'' all the pages.
+More cluster centers will thus avoid dominant clusters from forming.
+It should be noted that we will also end up with more empty clusters
+as a result, but those can just be ignored, as well as the fact that
+it takes longer to compute for more clusters.
 
 Ideally we would use 7 clusters and see the clusters split the books
-apart exactly, but this ended up not being the case, so we needed
-to start playing around with the amount of clusters. At the end of
-the day the correct amount of clusters is a balancing act.\\
+apart exactly, but this was not the case. Also in order to get meaningful
+information about similarities between the books we would want different
+books to be clustered together in different formations, and for that
+we might want to use less than 7 clusters. At the end of the day the
+correct amount of clusters is a balancing act depending on which type
+of information we hope to get from our data.\\
 
 Using k=3 after 22 epochs we obtained:
 
@@ -543,10 +557,10 @@ very long and was not worth the difference (the results are too large
 to paste here).
 
 We also hoped to be able to see similarities between books by forcing
-the to get clustered together when using a small k, but this did not
-end up happening. For the most part using a small k just made the
-clusters seem more random looking, and no clear distinctions could
-be made.
+them to get clustered together when using a small k, but this did
+not end up happening. For the most part using a small k just made
+the clusters appear more random, and no clear distinctions could be
+made.
 
 \paragraph{\label{par:kMeans-Removing-words}Removing words - True/False}
 
@@ -557,16 +571,33 @@ in character names, objects, places and other unique words in a book,
 it is necessary to keep all of the words. On the other hand using
 non-unique words can create a lot of noise within the data.
 
-Our final results without removing words after ??? epochs are:
+Our final results without removing words after 91 epochs are:
+\begin{lstlisting}
+cluster 0 book_count: [161, 97, 0, 0, 0, 1, 0]
+cluster 1 book_count: [11, 11, 50, 405, 0, 572, 265]
+cluster 2 book_count: [37, 57, 344, 1, 3, 5, 4]
+cluster 3 book_count: [126, 201, 74, 0, 0, 0, 1]
+cluster 4 book_count: [6, 7, 11, 61, 568, 48, 88]
+cluster 5 book_count: [3, 2, 0, 0, 0, 0, 0]
+cluster 6 book_count: [3, 2, 7, 342, 533, 102, 491]
+\end{lstlisting}
 
-We ended up removing words because we did not have time to run tests
-without removing words and we managed to get good results with removing
-words.
+For the remainder of the tests we did remove words because it took
+very long to run a test without removing words which was not conducive
+for running multiple tests. However we still obtained meaningful results
+from tests while removing words.
 
 \paragraph{Removing words threshold}
 
+After we screen the dictionary, to keep only words that are unique
+for a single book, we also use a threshold for how common a word is
+in that book to tell us whether we want to keep the word in the dictionary
+or remove it. If a word is unique, but its normalized value is less
+than the threshold we consider it to be irrelevant for our purposes
+and remove it.\\
+
 We used a PCA to gather a benchmark of how many features, in our case
-words, should be kept. the following PCA graph was obtained when running
+words, should be kept. The following PCA graph was obtained when running
 on the dictionary of all unique words after removal of non-unique
 words (with a threshold of 0):
 
@@ -577,16 +608,26 @@ possible to plot the PCA as a histogram. Even after removing all the
 eigenvalues that were equal to zero we were left with thousands of
 words. Instead we plotted only the non-zero eigenvalues as separate
 points in a scatter plot. The eigenvalue are the red dots, for each
-value x value there is an eigenvalue, and the scale is according to
-the percentage of effectiveness of that eigenvalue. The green dots
-are the cumulative values of the eigenvalues to that point.
+x-value there is an eigenvalue, and the scale is according to the
+percentage of effectiveness of that eigenvalue. The green dots are
+the cumulative values of the eigenvalues to that point.
+
+We also tried to look at the PCA without removing words and got the
+following:
+
+\includegraphics[scale=0.5]{kmeans_clustering/images/pca_all_words}
+
+We can see that the values of all eigenvalues are roughly the same
+and all very low, but accumulate because of the large number of them.
+This supposedly means that all of the words are meaningful to the
+same degree and should be kept, and was not very helpful to us.
 
 We can see that around the 500th eigenvalue we start to have significant
 stagnation, and after the 1500th eigenvalue we barely see any movement
-at all. Thus we aimed at running setting our threshold variable such
-that we would be left with 500 words and 1500 words to see results
-we would get, initially assuming that any more than 1500 words wont
-add any meaningful information.
+at all. Thus we aimed at testing while setting our threshold variable
+such that we would be left with 500 words and 1500 words to see what
+results we would get, initially assuming that any more than 1500 words
+wouldn't add any meaningful information.
 
 \subsection{Results}
 
@@ -609,13 +650,14 @@ cluster 5 book_count: [0, 0, 0, 67, 5, 67, 71]
 cluster 6 book_count: [1, 6, 46, 0, 0, 4, 0]
 \end{lstlisting}
 
-We can a clear distinction between books 1,2,3 and books 4,5,6,7 as
-only cluster 6 has both groups represented, and the amount there is
-nearly negligible. Furthermore we can see that book 5 is pretty distinguishable
-from books 4,6 and 7, as cluster 2 focuses primarily on book 5 and
-cluster 5 focuses primarily on books 4,6, and 7. We can also see from
-clusters 1,4 and 6 that book 3 is mostly distinguishable from books
-1 and 2, but that books 1,2 aren't easily separable.\\
+We can see a clear distinction between books 1,2,3 and books 4,5,6,7
+as only clusters 2 and 6 has both groups represented, and the contrary
+amount there is nearly negligible. Furthermore we can see that book
+5 is relatively distinguishable from books 4,6 and 7, as cluster 2
+focuses primarily on book 5 and cluster 5 focuses primarily on books
+4,6, and 7. We can also see from clusters 1,4 and 6 that book 3 is
+mostly distinguishable from books 1 and 2, but that books 1,2 aren't
+easily separable.\\
 
 It is interesting to see a clear gap between the first 3 books and
 the later 4 books. This could have many different reasons, but a quick
@@ -623,9 +665,9 @@ search brought up that the first Harry Potter movie came out between
 the time book 3 came out and book 4 came out, with a very unscientific
 hunch we could assume it might of had an impact.\\
 
-\subsection{Benchmark dataset results}
+\subsection{Benchmark Dataset Results}
 
-\subsection{Bad attempts}
+\subsection{First Attempt}
 
 Previous to the current method of k-Means we attempted to process
 the data in a different way. Initially we wanted to be able to graph
@@ -639,42 +681,51 @@ the removal stage and give them values on a 2D plane:
 
 \begin{lstlisting}
 choose a word from dictionary - give it a value of 1.
-for curr_word in dictionary:
+for curr_word in dictionary do
 	previous words values sum = 0
-	for each word that already has a value:
-		previous words values sum += word value * amount that word appeared in all books together
+	for each word that already has a value do
+		previous words values sum += \
+			word value * amount that word appeared in all books together
+	end for
 	curr_word = previous words values sum + 1
+end for
 \end{lstlisting}
 \end{algorithm}
 
 This algorithm insured us a unique value for each word as well as
 the fact that it was impossible to sum up different words and get
 a value of another existing word (i.e. we could never have something
-like ``harry'' + ``ron'' = ``hermione'').
+like ``harry'' + ``ron'' = ``hermione''). This is due to the
+fact that each word in the dictionary is larger than the sum of all
+instances of all the words before it. Thus given X words the sum of
+those words is larger than the largest word in the input but smaller
+than any word with a larger value than that of the largest word in
+the input.
 
 Another advantage of this was that by merely splitting up the initial
-dictionary into N parts we could run this algorithm on each part and
-thus get a representation of our data in N dimensions.\\
+dictionary into N sub-dictionaries we could run this algorithm on
+each sub-dictionary and thus get a representation of our data in any
+N dimensions we wanted.\\
 
 After some time of working with this algorithm for processing data
 we realized that this method either arranges the pages in a completely
-random way that can not be clustered in any meaningful way, or we
-can structure the data in a way that predefines the pages in clusters
+random way that cannot be clustered in any meaningful way, or we can
+structure the data in a way that predefines the pages in clusters
 - and thus any data we get is very biased and gives meaningless results.
 This is due to the nature of the values we give the words: what ends
 up happening is that when you give a value to a page for a dimension,
-this value will be in the interval of the value of the word with the
-largest value in the page and the value of the word that is the next
-largest in the dictionary of this dimension. Doing this for each dimension
-of the world would create ``boxes'' in the world that are exclusive
-to pages from a certain book. If we randomize the order of the words
-on each axis, these ``boxes'' would be located randomly on the board
-which essentially makes the world look like white noise. If we order
-the way the words get their values on the axis (i.e. all words from
-book 1 get a smaller value than all those from book 2, etc.) then
-we just artificially make the clusters of pages of each book, and
-using k-means to cluster it will just cluster our artificially made
-clusters and give meaningless results.
+this value will be in between the value of the word with the largest
+value in the page and the value of the word that is the next largest
+in the sub-dictionary of this dimension (as explained above). Doing
+this for each dimension of the domain would create ``boxes'' in
+the domain that are exclusive to pages from a certain book. If we
+randomize the order of the words on each axis, these ``boxes'' would
+be located randomly on the board which essentially makes the domain
+look like white noise. If we order the way the words get their values
+on the axis (i.e. all words from book 1 get a smaller value than all
+those from book 2, etc.) then we just artificially make the clusters
+of pages of each book, and using k-means to cluster it will just cluster
+our artificially made clusters and give meaningless results.
 
 \subsection{Conclusion}
 
@@ -689,6 +740,7 @@ testing out different theories via clustering. This being said k-Means
 can also be very deceiving at times, and it is important to make sure
 that the data processing is done with care and does not introduce
 any biases.
+
 
 \section{Hard Code}
 
