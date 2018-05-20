@@ -140,9 +140,61 @@ This project is part of the machine learning course held in the University
 \end_layout
 
 \begin_layout Standard
-We used the following techniques: Naïve Bayes, k-means clustering, and neural
- networks.
- The process and results are specified below.
+We used the following techniques:
+\end_layout
+
+\begin_layout Itemize
+Naïve Bayes
+\end_layout
+
+\begin_layout Itemize
+k-Means clustering
+\end_layout
+
+\begin_layout Itemize
+Neural Networks.
+\end_layout
+
+\begin_layout Standard
+We used these techniques on both the Harry Potter series of books and on
+ a general benchmark set of 7 books from different genres.
+ We used the general benchmark test to asses our algorithms and see if the
+ results we obtained from the Harry Potter set were due to J.K Rowling's
+ change in writing over time or if it was due to our algorithms being problemati
+c and not suiting this particular problem well.
+ The benchmark set of books included: 
+\end_layout
+
+\begin_layout Itemize
+Book1 - The Old Testament (God)
+\end_layout
+
+\begin_layout Itemize
+Book2 - A Natural History of Ducks (History)
+\end_layout
+
+\begin_layout Itemize
+Book3 - Lord of the Rings - all 3 books merged into 1 (Fantasy)
+\end_layout
+
+\begin_layout Itemize
+Book4 - Fifty Shades of Grey (Romantic porn)
+\end_layout
+
+\begin_layout Itemize
+Book5 - 1922 (Horror)
+\end_layout
+
+\begin_layout Itemize
+Book6 - Macbeth (Shakespeare)
+\end_layout
+
+\begin_layout Itemize
+Book7 - The Adventures of Sherlock Holmes (Crime/Detective)
+\end_layout
+
+\begin_layout Standard
+The process and results are specified below.
 \end_layout
 
 \begin_layout Section
@@ -156,7 +208,8 @@ Background
 \begin_layout Standard
 The Naïve Bayes Algorithm uses a list of probabilities and Bayes Rule to
  classify data into groups.
- 
+ The idea of this project was to classify sets of pages from the Harry Potter
+ books into the books in which they belong.
 \end_layout
 
 \begin_layout Subsection
@@ -164,7 +217,7 @@ Methods
 \end_layout
 
 \begin_layout Subsubsection
-Data Processing 
+Data Pre-Processing 
 \end_layout
 
 \begin_layout Standard
@@ -203,10 +256,27 @@ We then took our training data and we calculated the probability for each
  for around 20 000 words.
  Each of the tables contains a different number of words because of how
  the data is split up and which data the trainer sees and which is used
- for testing (see folder probTables where we have stored each of our tables).Usin
-g the validation data we optimized the hyperparameters `pageSetSize`, `upperThre
-shold`, `lowerThreshold` and `requiredNum`.
- We did this using the following algorithm:
+ for testing (see folder probTables where we have stored each of our tables).
+ 
+\end_layout
+
+\begin_layout Standard
+In order to narrow down our dictionary (to improve both speed and accuracy)
+ we decided to remove common words that don’t differentiate well between
+ books.
+ We did this by comparing the probabilities for each word of it appearing
+ in each book and if at least one of these seven probabilities where greater
+ than `upperThreshold` and at least `requiredNum` probabilities are less
+ than `lowerThreshold` we then kept the word.
+ By doing this we only keep words that appear often in one or more books
+ and barely appear in multiple other books.
+ 
+\end_layout
+
+\begin_layout Standard
+Using the validation data we optimized the hyperparameters: `pageSetSize`,
+ `upperThreshold`, `lowerThreshold` and `requiredNum`.
+ We did this using the following algorithm: 
 \end_layout
 
 \begin_layout Standard
@@ -229,12 +299,28 @@ Keeping Relevant Words
 
 \begin_layout Plain Layout
 \begin_inset listings
+lstparams "language=Octave"
 inline false
 status open
 
 \begin_layout Plain Layout
 
-for each pageSetSize ranging from 1 – 13:
+for each set of pages do
+\end_layout
+
+\begin_layout Plain Layout
+
+	create probability table based off size of page set using trainingData
+\end_layout
+
+\begin_layout Plain Layout
+
+end for
+\end_layout
+
+\begin_layout Plain Layout
+
+for each requiredNum in range 1 - 5 do
 \end_layout
 
 \begin_layout Plain Layout
@@ -243,28 +329,17 @@ for each pageSetSize ranging from 1 – 13:
 
 \begin_layout Plain Layout
 
-	probailityTable = create probability table based off pageSetSize using
- trainingData
+	currTable = probailityTable with words removed based off
 \end_layout
 
 \begin_layout Plain Layout
 
-for each requiredNum in range 1 - 5
+				upperThreshold, lowerThreshold and requiredNum
 \end_layout
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
-	currTable = probailityTable with words removed based off upperThreshold,
- lowerThreshold and requiredNum
-\end_layout
-
-\begin_layout Plain Layout
-
-	while accuracy on validation data is improving:
+	while accuracy on validation data is improving do
 \end_layout
 
 \begin_layout Plain Layout
@@ -273,7 +348,7 @@ for each requiredNum in range 1 - 5
 
 \begin_layout Plain Layout
 
-		while accuracy on validation data is improving:
+		while accuracy on validation data is improving do
 \end_layout
 
 \begin_layout Plain Layout
@@ -287,8 +362,12 @@ for each requiredNum in range 1 - 5
 
 \begin_layout Plain Layout
 
-			currTable = probailityTable with words removed based off new upperThreshold,
- lowerThreshold and requiredNum
+			currTable = probailityTable with words removed based off
+\end_layout
+
+\begin_layout Plain Layout
+
+						new upperThreshold, lowerThreshold and requiredNum
 \end_layout
 
 \begin_layout Plain Layout
@@ -298,15 +377,16 @@ for each requiredNum in range 1 - 5
 
 \begin_layout Plain Layout
 
+		end while
 \end_layout
 
 \begin_layout Plain Layout
 
-		while accuracy on validation data is improving:
 \end_layout
 
 \begin_layout Plain Layout
 
+		while accuracy on validation data is improving do
 \end_layout
 
 \begin_layout Plain Layout
@@ -316,13 +396,22 @@ for each requiredNum in range 1 - 5
 
 \begin_layout Plain Layout
 
-			currTable = probailityTable with words removed based off new upperThreshold,
- lowerThreshold and requiredNum
+			currTable = probailityTable with words removed based off
+\end_layout
+
+\begin_layout Plain Layout
+
+						new upperThreshold, lowerThreshold and requiredNum
 \end_layout
 
 \begin_layout Plain Layout
 
 			Retest on validation data 
+\end_layout
+
+\begin_layout Plain Layout
+
+		end while
 \end_layout
 
 \begin_layout Plain Layout
@@ -341,12 +430,26 @@ for each requiredNum in range 1 - 5
 
 \begin_layout Plain Layout
 
+	end while
 \end_layout
 
 \begin_layout Plain Layout
 
-take the pageSetSize, upperThreshold, lowerThreshold and requiredNum that
- yield the best accuracy
+end for
+\end_layout
+
+\begin_layout Plain Layout
+
+take the pageSetSize, upperThreshold, lowerThreshold and requiredNum
+\end_layout
+
+\begin_layout Plain Layout
+
+that yield the best accuracy
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -384,7 +487,7 @@ The following graph shows the accuracy given for the different pageSetSizes
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename naive_bayes/Images/percentageAccuracy.PNG
+	filename naive_bayes/Project/Images/new_accuracy.PNG.png
 
 \end_inset
 
@@ -392,30 +495,15 @@ The following graph shows the accuracy given for the different pageSetSizes
 \begin_inset Newline newline
 \end_inset
 
-It is quite clear a pageSetSize of 9 gives the highest accuracy of 55%,
- we however feel that the pageSetSize of 3 pages with an accuracy of 50%
- is the best result as it balances as few pages as possible with the best
- accuracy possible.
- In addition despite a pageSetSize of 1 only having a 24% accuracy this
- is nearly double random and we feel it is still noteworthy and meaningful
- that based off a single page we can classify with that accuracy.
-\begin_inset Newline newline
-\end_inset
-
-It should also be noted that because we have a limited number of pages (there
- are 4707 pages in the series) when we increase the pageSetSize it decreases
- our dataset size.
- This means that the higher pageSetSizes have less training data and less
- testing data so the results aren’t as trustworthy.
- We believe this is the reason that the percentage accuracy doesn’t change
- as drastically over the last few pageSetSizes.
- The following table gives the breakup of pageSetSize and dataset size.
+It is quite clear a pageSetSize of 5 gives the highest accuracy.
+ Since the pageSetSize of 5 gives the highest accuracy, we use this pageSetSize
+ in our analysis.
 \begin_inset Newline newline
 \end_inset
 
 
 \begin_inset Graphics
-	filename naive_bayes/Images/pageSetSizeTable.PNG
+	filename naive_bayes/Project/Images/pageSetSizeTable.PNG
 
 \end_inset
 
@@ -424,8 +512,39 @@ It should also be noted that because we have a limited number of pages (there
 \end_inset
 
 Thus the best classifier that we found was trained using the following parameter
-s: pageSetSize = 3 requiredNum = 2 upperThreshold = 7.05 % lowerThreshold
- = 0.9 % Trained on 939 pageSets Validated on 315 pageSets
+s: 
+\end_layout
+
+\begin_layout Itemize
+pageSetSize = 5
+\end_layout
+
+\begin_layout Itemize
+Training pageSets = 563 
+\end_layout
+
+\begin_layout Itemize
+Testing pageSets = 192
+\end_layout
+
+\begin_layout Itemize
+Validation pageSets = 188 
+\end_layout
+
+\begin_layout Itemize
+Words Used for Classifying = 1594 
+\end_layout
+
+\begin_layout Itemize
+requiredNum = 1 
+\end_layout
+
+\begin_layout Itemize
+upperThreshold = 0.051875 
+\end_layout
+
+\begin_layout Itemize
+lowerThreshold = 0.03125
 \end_layout
 
 \begin_layout Subsubsection
@@ -537,7 +656,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+12
 \end_layout
 
 \end_inset
@@ -546,7 +665,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+2
 \end_layout
 
 \end_inset
@@ -555,7 +674,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1
 \end_layout
 
 \end_inset
@@ -564,7 +683,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -573,7 +692,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+2
 \end_layout
 
 \end_inset
@@ -582,7 +701,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -591,7 +710,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -611,7 +730,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1
 \end_layout
 
 \end_inset
@@ -620,7 +739,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+13
 \end_layout
 
 \end_inset
@@ -629,7 +748,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1
 \end_layout
 
 \end_inset
@@ -638,7 +757,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -647,7 +766,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -656,7 +775,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -665,7 +784,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -685,7 +804,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1
 \end_layout
 
 \end_inset
@@ -694,7 +813,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -703,7 +822,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+15
 \end_layout
 
 \end_inset
@@ -712,7 +831,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+2
 \end_layout
 
 \end_inset
@@ -721,7 +840,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+2
 \end_layout
 
 \end_inset
@@ -730,7 +849,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -739,7 +858,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -759,7 +878,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -768,7 +887,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -777,7 +896,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -786,7 +905,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+27
 \end_layout
 
 \end_inset
@@ -795,7 +914,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1
 \end_layout
 
 \end_inset
@@ -804,7 +923,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -813,7 +932,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1
 \end_layout
 
 \end_inset
@@ -833,7 +952,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -842,7 +961,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1
 \end_layout
 
 \end_inset
@@ -851,7 +970,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+2
 \end_layout
 
 \end_inset
@@ -860,7 +979,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+3
 \end_layout
 
 \end_inset
@@ -869,7 +988,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+36
 \end_layout
 
 \end_inset
@@ -878,7 +997,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1
 \end_layout
 
 \end_inset
@@ -887,7 +1006,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -907,7 +1026,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -916,7 +1035,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -925,7 +1044,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1
 \end_layout
 
 \end_inset
@@ -934,7 +1053,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1
 \end_layout
 
 \end_inset
@@ -943,7 +1062,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+2
 \end_layout
 
 \end_inset
@@ -952,7 +1071,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+26
 \end_layout
 
 \end_inset
@@ -961,7 +1080,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+1
 \end_layout
 
 \end_inset
@@ -981,7 +1100,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -990,7 +1109,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -999,7 +1118,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -1008,7 +1127,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+0
 \end_layout
 
 \end_inset
@@ -1017,7 +1136,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+2
 \end_layout
 
 \end_inset
@@ -1026,7 +1145,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+3
 \end_layout
 
 \end_inset
@@ -1035,7 +1154,7 @@ The following is the confusion matrix we got after testing this classifier
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+32
 \end_layout
 
 \end_inset
@@ -1049,20 +1168,16 @@ The following is the confusion matrix we got after testing this classifier
 \end_layout
 
 \begin_layout Standard
-This confusion matrix has an accuracy of 49.53%.
+This confusion matrix has an accuracy of 83.85%.
  There a quite a few interesting observations that can be made about the
  harry potter books from this matrix.
- 
-\end_layout
-
-\begin_layout Standard
-The first thing that jumps out as obvious in this matrix (and is reflected
- in all the others) is an obvious bias to book 1 and book 5.
+ The first thing that jumps out as obvious in this matrix (and is reflected
+ in all the others) is an obvious bias to book 5 and book 7.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename naive_bayes/Images/inCorrectPerBook.PNG
+	filename naive_bayes/Project/Images/new_classification.PNG.png
 
 \end_inset
 
@@ -1071,20 +1186,663 @@ The first thing that jumps out as obvious in this matrix (and is reflected
 
 \begin_layout Standard
 This could indicate multiple things.
- The bias towards book 1 is most likely because a lot is most likely introduced
- in book one that is referenced in later books.
- The bias towards book 5 could be because book 5 is the largest of all the
- harry potter books.
- It could also mean that in book 5 there are a lot of references and similaritie
-s to all of the earlier books and for this reason they are easily confused
- with book 5 and the classifier chooses book 5 over them since it is nearly
- double the size of the earlier books and thus more likely.
- See the following Table:
+ The bias towards book 5 could be because book 5 is the largest book out
+ of all seven Harry Potter books.
+ There are could be many references and similarities to the earlier books.
+ Similarly, the bias towards book 7 can be explained in this way.
+ Book 7 is the last book of the entire series which could try summarize
+ the entire plot.
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-\begin_inset Graphics
-	filename naive_bayes/Images/numBookPages.PNG
+We expect a misclassified page set is more likely to be classified as either
+ the previous book or the following book.
+ According to the confusion matrix, this is mostly the case.
+ However, we note that book 5 has the highest number of misclassifications
+ and they are spread out.
+ We attribute this to the fact that book 5 is the largest book in the series
+ and contains the most words.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Interestingly, book 1 and book 7 have the least number of misclassifications.
+ It makes sense to think of book 1 as the introductory book, hence it is
+ a bit unique.
+ This shows J.
+ K.
+ Rowling’s writing style did change from the first book.
+ Book 7 is obviously not referenced throughout the series (as it is the
+ last book) but can reference previous books.
+ We see that book 7 is only misclassified once as book 4 and 6, which interestin
+gly tells us book 7 is very much different to the other books.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Benchmark dataset results
+\end_layout
+
+\begin_layout Standard
+Using the Benchmark Books with a PageSetSize of 2 we got an accuracy of
+ 98.45% with the following confusion matrix:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="8">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+29
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+25
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+24
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+32
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+13
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
 
 \end_inset
 
@@ -1092,28 +1850,8 @@ s to all of the earlier books and for this reason they are easily confused
 \end_layout
 
 \begin_layout Standard
-Another interesting aspect of this confusion matrix is that other than the
- bias to book 5 it is nearly an upper triangular matrix, with majority of
- the incorrect guesses being in the upper triangle.
- This means that when it chooses incorrectly the classifier is more likely
- to pick an earlier book than it is to pick a later one.
- This result is to be expected as it means the later books are more similar
- to the earlier books than the earlier books are to the later ones.
- This is most likely because names of people and places, jargon and ideas
- are introduced in one book and carried through to the later books but all
- the books before the one in which this was introduced will have no reference
- to it.
- This is not only evident in this matrix but in all the other matrices as
- well, see the following graph which shows the split up of incorrect guesses
- between those that where later than the correct book and those that where
- earlier, as you can see majority of the time we classify as an earlier
- book rather than a later book.
- 
-\end_layout
-
-\begin_layout Standard
 \begin_inset Graphics
-	filename naive_bayes/Images/incorrectLayout.PNG
+	filename naive_bayes/Project/Images/benchmark_classification.PNG.png
 
 \end_inset
 
@@ -1121,33 +1859,39 @@ Another interesting aspect of this confusion matrix is that other than the
 \end_layout
 
 \begin_layout Standard
-A further surprising idea seen from the confusion matrices is that you would
- expect that when a page set is classified incorrectly it is most likely
- to be classified as either the previous book or the following book.
- The confusion matrices show that on average 29% of the incorrect guesses
- are classified as either the previous or following book.
- This however is very close to random as the probability of a page set being
- any one book is 14%, so the probability of it being any two is 28%, thus
- not much information can be derived from this.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Graphics
-	filename naive_bayes/Images/offBy1.PNG
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Interestingly however, it seems from the confusion matrices that book 6
- in particular is easily confused with and thus very similar to books 5
- and 7.
+We see that our Naive Bayes algorithm performed really well in classifying
+ different genres.
+ This is expected as different genres have different forms of writing styles
+ and story lines leading to a specific subset of words used in the different
+ books.
+ We note that Macbeth was easily confused with the Lord of the Rings.
+ This could be due to the fact that both books are fairly old and have a
+ more similar language style compared to the other books.
+ We also know that Macbeth does contain some fantastical words and many
+ words pertaining to a royal language, many of which is frequently used
+ in the Lord of the Rings.
+ Since the Lord of the Rings is a larger book with more characters, places
+ and jargon, it is not confused for Macbeth.
 \end_layout
 
 \begin_layout Subsection
 Conclusion
+\end_layout
+
+\begin_layout Standard
+The Naive Bayes algorithm turned out to work well for classifying books.
+ It was able to classify the Harry Potter series fairly well and was able
+ to give us information about the books.
+ We learned that book 5, 6, and 7 are similar to each other which tells
+ us that J.K Rowling’s style of writing did not change much during the last
+ three books and that book 1 and book 7 are quite different from any other
+ books which indicates the storyline was introduced and has been changed
+ for those particular books.
+\end_layout
+
+\begin_layout Standard
+In our Benchmark test we found out that our algorithm is classifying accurately
+ as it classified the different genres of books as expected.
 \end_layout
 
 \begin_layout Section
@@ -1159,38 +1903,30 @@ Background
 \end_layout
 
 \begin_layout Standard
-\begin_inset Quotes eld
-\end_inset
-
-K-means clustering is a type of unsupervised learning, which is used when
- you have unlabeled data (i.e., data without defined categories or groups).
- The goal of this algorithm is to find groups in the data, with the number
- of groups represented by the variable K.
- The algorithm works iteratively to assign each data point to one of K groups
- based on the features that are provided.
- Data points are clustered based on feature similarity.
- The results of the K-means clustering algorithm are:
-\end_layout
-
-\begin_layout Itemize
-The centroids of the K clusters, which can be used to label new data
-\end_layout
-
-\begin_layout Itemize
-Labels for the training data (each data point is assigned to a single cluster)
-\end_layout
-
-\begin_layout Standard
-Rather than defining groups before looking at the data, clustering allows
- you to find and analyze the groups that have formed organically.
-\begin_inset Quotes erd
+k-Means clustering is a form of unsupervised learning that takes unlabeled
+ data and groups (aka clusters) data points together in order to highlight
+ patterns.
+ The amount of groups produced by this algorithm, k, can be changed and
+ thus create different groups and highlight different patterns, and even
+ force data points that appear like they should be in separate groups to
+ mix if a low number of generated groups is chosen.
+ This algorithm is done iteratively by grouping points around a center and
+ then reinitializing the center according to the new points around it.
+ A problem that this algorithm has is the random initialization of the centers
+ of the clusters before the iteration starts - thus it is important to run
+ this algorithm multiple times in order to see consistent patterns.
+\begin_inset Newline newline
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-- Andrea Trevino (https://www.datascience.com/blog/k-means-clustering)
+We attempt to use the k-Means algorithm to see if there are any interesting
+ patterns between the different Harry Potter books and to try to spot different
+ instances that might have cause changes in the writing style.
+ This is a test case for a more generic problem of analyzing text and finding
+ patterns between different texts.
 \end_layout
 
 \begin_layout Subsection
@@ -1198,7 +1934,14 @@ Methods
 \end_layout
 
 \begin_layout Subsubsection
-Data Processing 
+Data Pre-Processing
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:kMeans-Data-Processing"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1229,11 +1972,12 @@ After normalizing in all of the books and creating dictionaries we sift
  single book.
  Within those words we also have a threshold of how common the word is (how
  big its value is) and only keep words whos values are above the threshold.
- We keep the option to remove words as a hyper-parameter and experiment
- with and without removing (see section 
+ We keep the option to remove words, as well as the threshold of removing
+ words, as hyper-parameters and experiment with and without removing (see
+ section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "subsec:kmeans-Hyper-Perameter-Tuning"
+reference "par:kMeans-Removing-words"
 
 \end_inset
 
@@ -1252,7 +1996,7 @@ We then took the books and merged the books pages together so that multiple
  fine-tuned between different attempts (see section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "subsec:kmeans-Hyper-Perameter-Tuning"
+reference "par:kMeans-Pages-merged"
 
 \end_inset
 
@@ -1309,7 +2053,7 @@ k
  attempts (see section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "subsec:kmeans-Hyper-Perameter-Tuning"
+reference "par:kmeans-k-hyperparameter"
 
 \end_inset
 
@@ -1452,20 +2196,993 @@ Whether to remove words
 The threshold for removing words
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Standard
+All of our tests were made with a baseline of
+\end_layout
 
+\begin_layout Itemize
+Amount of pages to be merged when reformatting the books= 1
+\end_layout
+
+\begin_layout Itemize
+k=7
+\end_layout
+
+\begin_layout Itemize
+removal = True
+\end_layout
+
+\begin_layout Itemize
+threshold for removing word = 
+\begin_inset Formula $0.4\cdot10^{-5}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and change a single variable from this constellation for each round.
+ We do this with a constant random seed as to produce consistency.
+ This may be problematic if this specific random seed is not particularly
+ good, but we thought it was the least risky we could get for testing (especiall
+y since we chose 42 as the random seed).
+\end_layout
+
+\begin_layout Standard
+The baseline gave us the following results after 42 epochs:
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+cluster 0 book_count: [104, 120, 96, 2, 1, 6, 1]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 1 book_count: [88, 52, 6, 0, 0, 0, 1]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 2 book_count: [11, 7, 19, 268, 851, 105, 272]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 3 book_count: [13, 23, 81, 411, 247, 393, 460]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 4 book_count: [0, 0, 0, 0, 0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 5 book_count: [39, 56, 215, 128, 5, 220, 111]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 6 book_count: [92, 119, 69, 0, 0, 4, 4]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset CommandInset label
+LatexCommand label
+name "par:kMeans-Pages-merged"
+
+\end_inset
+
+Pages merged when reformatting
+\end_layout
+
+\begin_layout Standard
+It is noticeable that increasing the pages being merged gives better results.
+ This is presumably because if the newly formatted pages are larger then
+ it is more likely that they contain a word from our dataset, and represents
+ the book it came from better and will be located nearer to other pages
+ from that book.
+ We come to this conclusion from the following results:
+\end_layout
+
+\begin_layout Standard
+While using a merge variable of 10 (merging every 10 pages into a single
+ page) gives us a result after 37 epochs of:
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+cluster 0 book_count: [0, 0, 0, 0, 0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 1 book_count: [5, 1, 0, 0, 0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 2 book_count: [1, 1, 1, 14, 106, 2, 14]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 3 book_count: [0, 0, 0, 0, 0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 4 book_count: [28, 30, 2, 0, 0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 5 book_count: [0, 0, 0, 67, 5, 67, 71]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 6 book_count: [1, 6, 46, 0, 0, 4, 0]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can clearly see that using a merge variable of 10 gives us more significant
+ results then the baseline results that used a merge value of 1.
+ Since we have less total pages to assess we lose some of the precision
+ in our results, but certain patterns can be more easily observed.
+\end_layout
+
+\begin_layout Standard
+These patterns include the fact that cluster 2 clearly classifies book 5,
+ even though some similarities with other books occur.
+ Clusters 1 and 4 classify books 1 and 2, which are apparently similar.
+ Cluster 5 classifies books 4,6 and 7 which seem to be similar, and a bit
+ of book 5 gets caught in the middle.
+ Cluster 6 mostly classifies book 3 with a bit of noise from books 1,2 and
+ 6.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset CommandInset label
+LatexCommand label
+name "par:kmeans-k-hyperparameter"
+
+\end_inset
+
+k - The amount of clusters to use
+\end_layout
+
+\begin_layout Standard
+Using a low value of k limits the amount of information we can get from
+ our clustering, as there is less room for movement between clusters.
+ On the other hand more clusters can make the results seem random or just
+ weird.
+ This could be caused by a cluster of pages that should clearly be together
+ getting split into multiple clusters because multiple cluster centers were
+ initialized near the points of all of those pages.
+\end_layout
+
+\begin_layout Standard
+That being said, an advantage of more clusters could be that you can end
+ up having more random centers not initially located in the middle of nowhere,
+ where they never get any pages in there clusters.
+ This is a problem in our case in particular, as our domain space is very
+ large and random cluster centers tend to get lost in the abyss.
+ If we have a lot of cluster centers we can allow ourselves to have some
+ clusters be empty, and only look at the ones that 
+\begin_inset Quotes eld
+\end_inset
+
+captured
+\begin_inset Quotes erd
+\end_inset
+
+ pages into them.
+ On the other side it takes longer to compute for more clusters.
+\end_layout
+
+\begin_layout Standard
+Ideally we would use 7 clusters and see the clusters split the books apart
+ exactly, but this ended up not being the case, so we needed to start playing
+ around with the amount of clusters.
+ At the end of the day the correct amount of clusters is a balancing act.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using k=3 after 22 epochs we obtained:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+cluster 0 book_count: [93, 114, 330, 273, 26, 404, 258]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 1 book_count: [237, 249, 105, 0, 0, 5, 5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ster 2 book_count: [17, 14, 51, 536, 1078, 319, 586]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using k=5 after 57 epochs we obtained:
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+cluster 0 book_count: [56, 92, 217, 65, 1, 148, 57]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 1 book_count: [114, 142, 100, 3, 2, 4, 1]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 2 book_count: [11, 9, 25, 313, 916, 138, 336]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 3 book_count: [23, 24, 117, 428, 185, 436, 453]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 4 book_count: [143, 110, 27, 0, 0, 2, 2]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using k=10 after 22 epochs we obtained:
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+cluster 0 book_count: [68, 92, 73, 4, 0, 10, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 1 book_count: [0, 0, 0, 0, 0, 0, 0] 
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 2 book_count: [11, 7, 18, 240, 827, 91, 257]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 3 book_count: [11, 19, 70, 394, 266, 342, 424]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 4 book_count: [0, 0, 0, 0, 0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 5 book_count: [56, 65, 139, 19, 2, 36, 11]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 6 book_count: [87, 47, 6, 0, 0, 0, 1]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 7 book_count: [23, 38, 119, 152, 9, 245, 152]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 8 book_count: [91, 109, 61, 0, 0, 4, 4]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 9 book_count: [0, 0, 0, 0, 0, 0, 0]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Mild improvements can be seen using k=20, but the computation took very
+ long and was not worth the difference (the results are too large to paste
+ here).
+\end_layout
+
+\begin_layout Standard
+We also hoped to be able to see similarities between books by forcing the
+ to get clustered together when using a small k, but this did not end up
+ happening.
+ For the most part using a small k just made the clusters seem more random
+ looking, and no clear distinctions could be made.
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset CommandInset label
+LatexCommand label
+name "par:kMeans-Removing-words"
+
+\end_inset
+
+Removing words - True/False
+\end_layout
+
+\begin_layout Standard
+Without removing words we are left with 20455 words, which will make for
+ a very slow clustering process.
+ An argument can be made that if we are looking for difference in writing
+ style, and not just difference in character names, objects, places and
+ other unique words in a book, it is necessary to keep all of the words.
+ On the other hand using non-unique words can create a lot of noise within
+ the data.
+\end_layout
+
+\begin_layout Standard
+Our final results without removing words after ??? epochs are:
+\end_layout
+
+\begin_layout Standard
+We ended up removing words because we did not have time to run tests without
+ removing words and we managed to get good results with removing words.
+\end_layout
+
+\begin_layout Paragraph
+Removing words threshold
+\end_layout
+
+\begin_layout Standard
+We used a PCA to gather a benchmark of how many features, in our case words,
+ should be kept.
+ the following PCA graph was obtained when running on the dictionary of
+ all unique words after removal of non-unique words (with a threshold of
+ 0):
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Need PCA without removing words!!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename kmeans_clustering/images/pca_grid.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since we have 8300 words after removing for unique words it wasn't possible
+ to plot the PCA as a histogram.
+ Even after removing all the eigenvalues that were equal to zero we were
+ left with thousands of words.
+ Instead we plotted only the non-zero eigenvalues as separate points in
+ a scatter plot.
+ The eigenvalue are the red dots, for each value x value there is an eigenvalue,
+ and the scale is according to the percentage of effectiveness of that eigenvalu
+e.
+ The green dots are the cumulative values of the eigenvalues to that point.
+\end_layout
+
+\begin_layout Standard
+We can see that around the 500th eigenvalue we start to have significant
+ stagnation, and after the 1500th eigenvalue we barely see any movement
+ at all.
+ Thus we aimed at running setting our threshold variable such that we would
+ be left with 500 words and 1500 words to see results we would get, initially
+ assuming that any more than 1500 words wont add any meaningful information.
 \end_layout
 
 \begin_layout Subsection
 Results
 \end_layout
 
-\begin_layout Subsubsection
-Confusion Matrix
+\begin_layout Standard
+The best results we managed to get used the hyper-parameters:
+\end_layout
+
+\begin_layout Itemize
+Amount of pages to be merged when reformatting the books = 10
+\end_layout
+
+\begin_layout Itemize
+k=7
+\end_layout
+
+\begin_layout Itemize
+removal = True
+\end_layout
+
+\begin_layout Itemize
+threshold for removing word = 
+\begin_inset Formula $0.4\cdot10^{-5}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The results we obtained were:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+cluster 0 book_count: [0, 0, 0, 0, 0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 1 book_count: [5, 1, 0, 0, 0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 2 book_count: [1, 1, 1, 14, 106, 2, 14]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 3 book_count: [0, 0, 0, 0, 0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 4 book_count: [28, 30, 2, 0, 0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 5 book_count: [0, 0, 0, 67, 5, 67, 71]
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster 6 book_count: [1, 6, 46, 0, 0, 4, 0]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can a clear distinction between books 1,2,3 and books 4,5,6,7 as only
+ cluster 6 has both groups represented, and the amount there is nearly negligibl
+e.
+ Furthermore we can see that book 5 is pretty distinguishable from books
+ 4,6 and 7, as cluster 2 focuses primarily on book 5 and cluster 5 focuses
+ primarily on books 4,6, and 7.
+ We can also see from clusters 1,4 and 6 that book 3 is mostly distinguishable
+ from books 1 and 2, but that books 1,2 aren't easily separable.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It is interesting to see a clear gap between the first 3 books and the later
+ 4 books.
+ This could have many different reasons, but a quick search brought up that
+ the first Harry Potter movie came out between the time book 3 came out
+ and book 4 came out, with a very unscientific hunch we could assume it
+ might of had an impact.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Benchmark dataset results
+\end_layout
+
+\begin_layout Subsection
+Bad attempts
+\end_layout
+
+\begin_layout Standard
+Previous to the current method of k-Means we attempted to process the data
+ in a different way.
+ Initially we wanted to be able to graph our data in a 2D plane in order
+ to have it easily visualized.
+ We devised the following algorithm to process the words from the books
+ left after the removal stage and give them values on a 2D plane:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Initial attempt (words to 2D plane)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+choose a word from dictionary - give it a value of 1.
+\end_layout
+
+\begin_layout Plain Layout
+
+for curr_word in dictionary:
+\end_layout
+
+\begin_layout Plain Layout
+
+	previous words values sum = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+	for each word that already has a value:
+\end_layout
+
+\begin_layout Plain Layout
+
+		previous words values sum += word value * amount that word appeared in
+ all books together
+\end_layout
+
+\begin_layout Plain Layout
+
+	curr_word = previous words values sum + 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This algorithm insured us a unique value for each word as well as the fact
+ that it was impossible to sum up different words and get a value of another
+ existing word (i.e.
+ we could never have something like 
+\begin_inset Quotes eld
+\end_inset
+
+harry
+\begin_inset Quotes erd
+\end_inset
+
+ + 
+\begin_inset Quotes eld
+\end_inset
+
+ron
+\begin_inset Quotes erd
+\end_inset
+
+ = 
+\begin_inset Quotes eld
+\end_inset
+
+hermione
+\begin_inset Quotes erd
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Another advantage of this was that by merely splitting up the initial dictionary
+ into N parts we could run this algorithm on each part and thus get a representa
+tion of our data in N dimensions.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After some time of working with this algorithm for processing data we realized
+ that this method either arranges the pages in a completely random way that
+ can not be clustered in any meaningful way, or we can structure the data
+ in a way that predefines the pages in clusters - and thus any data we get
+ is very biased and gives meaningless results.
+ This is due to the nature of the values we give the words: what ends up
+ happening is that when you give a value to a page for a dimension, this
+ value will be in the interval of the value of the word with the largest
+ value in the page and the value of the word that is the next largest in
+ the dictionary of this dimension.
+ Doing this for each dimension of the world would create 
+\begin_inset Quotes eld
+\end_inset
+
+boxes
+\begin_inset Quotes erd
+\end_inset
+
+ in the world that are exclusive to pages from a certain book.
+ If we randomize the order of the words on each axis, these 
+\begin_inset Quotes eld
+\end_inset
+
+boxes
+\begin_inset Quotes erd
+\end_inset
+
+ would be located randomly on the board which essentially makes the world
+ look like white noise.
+ If we order the way the words get their values on the axis (i.e.
+ all words from book 1 get a smaller value than all those from book 2, etc.)
+ then we just artificially make the clusters of pages of each book, and
+ using k-means to cluster it will just cluster our artificially made clusters
+ and give meaningless results.
 \end_layout
 
 \begin_layout Subsection
 Conclusion
+\end_layout
+
+\begin_layout Standard
+For the most part the results seem to show that differences between the
+ 7 books in the Harry Potter series can be found, and some books can tend
+ to be grouped together by the words that they use.
+ This shows that the use of the k-Means algorithm can be useful for analyzing
+ trends with time of word-based datasets.
+ The k-Means algorithm is relatively quick to compute and has little moving
+ parts to adjust (i.e.
+ hyper-parameters) and as such provides an easy test bed for testing out
+ different theories via clustering.
+ This being said k-Means can also be very deceiving at times, and it is
+ important to make sure that the data processing is done with care and does
+ not introduce any biases.
+\end_layout
+
+\begin_layout Section
+Hard Code
+\end_layout
+
+\begin_layout Subsection
+Background
+\end_layout
+
+\begin_layout Standard
+Hard coding is using the basic tools given in a programming language to
+ logic out an answer to a given problem.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After a while of trying different machine learning techniques we realized
+ that our data processing was manipulating the data in such a way that just
+ using a simple if statement in a couple of loops would probably be able
+ to solve the classification problem.This was due to the fact that we were
+ removing all words that weren't unique to a specific book, thus all we
+ needed to do is identify if one of the words that were left over were in
+ a given page, and knowing which book gave us this word in the database
+ in the first place we could then know which book the page was from.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We also noticed that by choosing to keep unique words we were skewing a
+ bit from our initial goal of discovering writing patterns and ended up
+ just identifying pages via new character names or objects or places from
+ the different books.
+ Looking at it from this aspect makes it seem much more like a simple problem
+ that can be hard coded.
+\end_layout
+
+\begin_layout Subsection
+Methods
+\end_layout
+
+\begin_layout Subsubsection
+Data Pre-Processing
+\end_layout
+
+\begin_layout Standard
+For data processing we did the exact same thing done in the data processing
+ for k-Means (see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:kMeans-Data-Processing"
+
+\end_inset
+
+) up to the point of merging pages.
+ The only thing to note is that we chose a threshold of 0 while removing
+ data (thus keeping all of the words that were unique per a single book).
+\end_layout
+
+\begin_layout Subsubsection
+Hard Coding Procedure
+\end_layout
+
+\begin_layout Standard
+The algorithm used is a follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Hard Coding
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+total classifications = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+correct classifications = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+for each book:
+\end_layout
+
+\begin_layout Plain Layout
+
+	for each page in the book:
+\end_layout
+
+\begin_layout Plain Layout
+
+		total classifications += 1
+\end_layout
+
+\begin_layout Plain Layout
+
+		for each word in our database:
+\end_layout
+
+\begin_layout Plain Layout
+
+			if the word is in the book:
+\end_layout
+
+\begin_layout Plain Layout
+
+				if the page came from the same book the word came from:
+\end_layout
+
+\begin_layout Plain Layout
+
+					correct classifications += 1
+\end_layout
+
+\begin_layout Plain Layout
+
+					go to testing next page
+\end_layout
+
+\begin_layout Plain Layout
+
+		if the page did not contain any word for the database:
+\end_layout
+
+\begin_layout Plain Layout
+
+			randomly choose a book
+\end_layout
+
+\begin_layout Plain Layout
+
+result = correct classifications / total classifications		
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are improvements that can be made to this algorithm, such as taking
+ semi unique words into account, but we found the results we got were good
+ enough to prove our point and it was unnecessary to continue tinkering.
+\end_layout
+
+\begin_layout Subsubsection
+Hyper-Parameter Tuning
+\end_layout
+
+\begin_layout Standard
+The only hyper-parameter we could tune was:
+\end_layout
+
+\begin_layout Itemize
+The amount of pages to be merged
+\end_layout
+
+\begin_layout Standard
+We chose to keep this at 1 (thus not merging any pages) as this would give
+ us the least probability to find a unique word, and thus is the hardest
+ case.
+ If this would give us a good result then that would be the strongest statement
+ possible.
+\end_layout
+
+\begin_layout Subsection
+Results
+\end_layout
+
+\begin_layout Standard
+Using this method we managed to get 99.63% accuracy (4683/4700 pages correctly
+ classified).
+ In case we just got lucky with our random picks we also tried to run the
+ algorithm without a random pick of a book if no unique words were found
+ in a page, and that gave use 95.59% accuracy (4681/4700 pages correctly
+ classified).
+ These results were also obtained significantly faster than any of our machine
+ learning methods, as the computation time could be counted in a few seconds
+ as apposed to several minutes for the other methods
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As mentioned earlier if we were to merge more pages, or take semi-unique
+ words into account we could probably improve upon this result, but we felt
+ that the results were good enough to make our point.
+\end_layout
+
+\begin_layout Subsection
+Conclusions
+\end_layout
+
+\begin_layout Standard
+Machine learning is cool, but can sometimes over-complicate a problem.
+ If you find yourself going down a rabbit hole - Occam's razor can save
+ you a lot of time, energy and frustration.
+ That being said, the different techniques did give us some insight that
+ we could not obtain using the hard coding method, such as which books appear
+ more similar and around which books did J.K Rowling start using more different
+ words.
+\end_layout
+
+\begin_layout Section
+Final Thoughts
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Itemize
+We didn't do scatter plots because we had too many features
+\end_layout
+
+\begin_layout Itemize
+comparing the different techniques is a bit problematic since we used different
+ data processing for each one.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

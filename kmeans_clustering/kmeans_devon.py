@@ -29,6 +29,9 @@ logging.getLogger('').addHandler(console)
 def remove_words():
 	logging.info("before removing: " + str(len(book_words[3])))
 	thresh = 0.4 * math.pow(10,-5)
+	if check_hard_code or do_pca:
+		thresh = 0
+
 	for book_num,words in enumerate(book_words):
 		temp_dict = {}
 		for word in words:
@@ -46,7 +49,6 @@ def remove_words():
 				if num == 0:
 					num_zeros += 1
 
-			#if np.var(word_all) < thresh:
 			if num_zeros < 6 or (num_zeros == 6 and words[word] < thresh):
 				temp_dict[word] = 1
 
@@ -152,21 +154,50 @@ def pca():
 	cov_mat = np.cov(np.array(mat).T)
 		
 	w, v = np.linalg.eig(cov_mat)
-	small_w = [a for a in np.array(w).real if a != 0]
-	comulative_small_w = [sum(small_w[i:]) for i in range(len(small_w))]
+	small_w = [(100.0*a)/sum(np.array(w).real) for a in np.array(w).real if a != 0]
+	comulative_small_w = [sum(small_w[:i]) for i in range(len(small_w))]
 
 	logging.info("plotting pca...")
 	plt.plot(range(len(small_w)), small_w, "ro")
 	plt.plot(range(len(small_w)), comulative_small_w, "go")
+	plt.xticks(np.arange(0,len(small_w), 250))
+	plt.yticks(np.arange(0,105,5))
+	plt.grid(axis='x', linestyle='-')
+	plt.grid(axis='y', linestyle='-')
+	plt.suptitle('Principal components analysis (PCA)', fontsize=20)
+	plt.xlabel('Eigenvalue Number', fontsize=16)
+	plt.ylabel('Effectivness Percentage', fontsize=16)
 	#plt.hist(small_w, bins='auto')
 	plt.show()
+
+def hard_code():
+	correct = 0
+	total = 0
+	for page_book_num, pages in enumerate(book_pages):
+		for page in pages:
+			prediction_found = False
+			for word_book_num, words in enumerate(book_words):
+				for word in words:
+					if word in page:
+						if page_book_num == word_book_num:
+							correct += 1
+							prediction_found = True
+							break
+				if prediction_found:
+					break
+			if not prediction_found:
+				if random.randint(0,6) == page_book_num:
+					correct += 1
+			total += 1
+	logging.info("hard code result is: " + str(correct) + "/" + str(total) + " = " + str(correct/(total*1.0)))
 
 NUM_OF_BOOKS = 7
 PARA_PER_PAGE = 1
 k = 7 #NUM_OF_BOOKS
-do_remove = True
+do_remove = False
+check_hard_code = False
 do_pca = False
-random.seed(time.time())
+random.seed(42)#time.time())
 logging.info("NUM_OF_BOOKS: " + str(NUM_OF_BOOKS) )
 logging.info("PARA_PER_PAGE: " + str(PARA_PER_PAGE) )
 logging.info("k: " + str(k) )
@@ -245,6 +276,9 @@ book_pages = []
 for book in data_files:
 	book_pages.append(book_to_pages(book, PARA_PER_PAGE))
 logging.info("amount of pages: " + str(len([page for book in book_pages for page in book])))
+
+if check_hard_code:
+	hard_code()
 
 #get value for each page
 page_values = [[] for i in range(NUM_OF_BOOKS)]
