@@ -91,8 +91,8 @@ By:
 \begin_inset Newline newline
 \end_inset
 
-Or Hanoch, Devon Jarvis, Meir Rosendorff, Kimesha <insert indian last name
- here>
+Or Hanoch (1501858), Devon Jarvis (1365149), Meir Rosendorff (1490527),
+ Kimessha Paupamah (1038238)
 \begin_inset Newline newline
 \end_inset
 
@@ -101,7 +101,7 @@ Instructor:
 \end_inset
 
 Dr.
- Benjamin Rossman
+ Benjamin Rosman
 \end_layout
 
 \begin_layout Standard
@@ -130,7 +130,7 @@ section{Introduction}
 \begin_layout Standard
 This project is part of the machine learning course held in the University
  of the Witwatersrand and lectured by Dr.
- Benjamin Rossman.
+ Benjamin Rosman.
  In this project we use different machine learning techniques learnt in
  the course to recognize which book, from a set of books, a given page is
  from.
@@ -289,7 +289,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Keeping Relevant Words
+Naïve Bayes - Keeping Relevant Words
 \end_layout
 
 \end_inset
@@ -2019,10 +2019,11 @@ reference "par:kMeans-Pages-merged"
 Note:
 \series default
  The normalization we applied to the dictionaries is not applicable to a
- page per page basis as a single page doesn't necessarily consist all of
- the appearance of a single word, thus we needed to normalize them separately
- and that is the reason for the division by the amount of words of the book
- of the page being given a value.
+ page per page basis, as a single page doesn't necessarily consist all of
+ the appearance of a single word.
+ Thus we needed to normalize them separately and that is the reason for
+ the division by the amount of words of the book of the page being given
+ a value.
 \begin_inset Newline newline
 \end_inset
 
