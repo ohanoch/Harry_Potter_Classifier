@@ -23,7 +23,7 @@ for pageSize in pageSizes:
     alpha = 0.001*pageSize
 
     for i in range(numBooks):
-        bookFile = open("book" + str(i+1) + ".txt", "r")
+        bookFile = open("BenchmarkBooks/book" + str(i+1) + ".txt", "r")
         currBook = []
         line = bookFile.readline()
         count = 0

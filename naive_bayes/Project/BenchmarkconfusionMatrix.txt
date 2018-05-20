@@ -73,3 +73,178 @@ Percentage Incorrect:	2.29885057471
 7 	|	0	|	0	|	0	|	0	|	0	|	0	|	1
 
 
+Page size: 4 paragraphs
+Num Training Lines: 186
+Num Testing Cases:	66
+Num Validation Cases:	63
+Words Used for Classifying:	52
+numNeccesary:	1
+upperThreshold:	0.498
+lowerThreshold:	0.028
+Words:		your	you	shall	saying	thou	thy	shalt	upon	5	6	7	8	hath	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	�	lord	birds	1	species	need	think	has	-	henry	hobbits	frodo	it’s	’	don’t	christian	”	he’s	anastasia	i’m
+Percentage Validation Correct:	0.954545454545
+Percentage Correct:	96.9696969697
+Percentage Buffered:	96.9696969697
+Percentage Incorrect:	3.0303030303
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	15	|	0	|	0	|	0	|	0	|	0	|	0
+2 	|	0	|	13	|	0	|	0	|	0	|	0	|	0
+3 	|	0	|	0	|	12	|	0	|	1	|	0	|	0
+4 	|	0	|	0	|	0	|	16	|	0	|	0	|	0
+5 	|	0	|	0	|	0	|	0	|	5	|	0	|	0
+6 	|	0	|	0	|	0	|	0	|	0	|	2	|	0
+7 	|	0	|	0	|	0	|	0	|	1	|	0	|	1
+
+
+Page size: 5 paragraphs
+Num Training Lines: 149
+Num Testing Cases:	53
+Num Validation Cases:	51
+Words Used for Classifying:	74
+numNeccesary:	1
+upperThreshold:	0.4925
+lowerThreshold:	0.0325
+Words:		upon	thy	21	thou	22	23	shall	24	25	26	among	your	birds	27	28	29	shalt	�	hath	female	male	children	4	6	7	8	9	10	11	12	13	14	15	16	17	18	19	saying	20	oh	feel	species	smile	get	need	common	bird	ducks	duck	has	seems	probably	says	does	breeding	-	really	think	henry	frodo	don’t	—	it’s	i’m	”	can’t	anastasia	“i	he’s	christian	i’ve	that’s	didn’t	arlette
+Percentage Validation Correct:	0.962264150943
+Percentage Correct:	98.1132075472
+Percentage Buffered:	98.1132075472
+Percentage Incorrect:	1.88679245283
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	12	|	0	|	0	|	0	|	0	|	0	|	0
+2 	|	0	|	10	|	0	|	0	|	0	|	0	|	0
+3 	|	0	|	0	|	10	|	0	|	1	|	0	|	0
+4 	|	0	|	0	|	0	|	13	|	0	|	0	|	0
+5 	|	0	|	0	|	0	|	0	|	4	|	0	|	0
+6 	|	0	|	0	|	0	|	0	|	0	|	2	|	0
+7 	|	0	|	0	|	0	|	0	|	0	|	0	|	1
+
+
+Page size: 6 paragraphs
+Num Training Lines: 123
+Num Testing Cases:	46
+Num Validation Cases:	43
+Words Used for Classifying:	133
+numNeccesary:	1
+upperThreshold:	0.4165
+lowerThreshold:	0.0185
+Words:		20	hath	sons	21	thy	24	thou	thee	�	11	vol	e	16	17	18	19	shalt	28	29	32	33	flocks	according	egypt	nor	israel	commanded	season	began	female	shot	gardens	birds	nest	bird	p	region	nesting	sclater	london	has	1908	duck	henry	says	ducks	really	english	gray	wing	mm	regions	color	nearly	breeding	common	apparently	nests	probably	seems	southern	northern	rare	habits	usually	fact	get	although	various	writers	across	specimens	commonly	shire	period	does	later	deep	status	trying	suddenly	comes	-	grey	miss	frodo	hobbits	hope	’	dont	moment	don’t	stare	looks	there’s	staring	expression	—	that’s	i’d	frown	“i	”	shit	he’s	you’re	it’s	i’m	flush	doesn’t	steele	christian	“i’m	asks	can’t	“yes”	“you	anastasia	murmurs	i’ll	me”	pulls	“it’s	“oh	“what	jeez	i’ve	‘i	didn’t	you”	subconscious	wasn’t	arlette
+Percentage Validation Correct:	0.913043478261
+Percentage Correct:	95.652173913
+Percentage Buffered:	95.652173913
+Percentage Incorrect:	4.34782608696
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	10	|	0	|	0	|	0	|	0	|	0	|	0
+2 	|	0	|	9	|	0	|	0	|	0	|	0	|	1
+3 	|	0	|	0	|	8	|	0	|	0	|	0	|	0
+4 	|	0	|	0	|	0	|	10	|	0	|	0	|	0
+5 	|	0	|	0	|	0	|	0	|	5	|	0	|	0
+6 	|	0	|	0	|	0	|	0	|	0	|	2	|	0
+7 	|	0	|	0	|	0	|	1	|	0	|	0	|	0
+
+
+Page size: 7 paragraphs
+Num Training Lines: 106
+Num Testing Cases:	39
+Num Validation Cases:	36
+Words Used for Classifying:	114
+numNeccesary:	1
+upperThreshold:	0.463125
+lowerThreshold:	0.03775
+Words:		19	20	21	hath	22	23	24	lord	25	right	26	27	28	29	saying	oh	tell	therefore	birds	bird	7	8	10	things	11	14	15	16	17	18	according	30	�	holy	13	east	your	vol	thou	shalt	egypt	nor	heart	hair	male	stood	saw	species	drew	river	season	female	want	shot	asked	coast	passed	p	region	southern	range	common	says	ducks	regions	almost	fact	think	need	seem	duck	probably	has	really	does	habits	breeding	specimens	wing	gray	seems	various	apparently	london	states	grey	england	others	trying	get	-	hobbits	sam	frodo	don’t	looks	smile	it’s	miss	”	doesn’t	i’m	can’t	anastasia	christian	he’s	“you	you”	“i’m	steele	“i	i’ve	that’s	you’re
+Percentage Validation Correct:	0.923076923077
+Percentage Correct:	94.8717948718
+Percentage Buffered:	94.8717948718
+Percentage Incorrect:	5.12820512821
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	9	|	0	|	0	|	0	|	0	|	0	|	0
+2 	|	0	|	7	|	0	|	0	|	0	|	0	|	0
+3 	|	0	|	0	|	7	|	0	|	0	|	1	|	1
+4 	|	0	|	0	|	0	|	10	|	0	|	0	|	0
+5 	|	0	|	0	|	0	|	0	|	4	|	0	|	0
+6 	|	0	|	0	|	0	|	0	|	0	|	0	|	0
+7 	|	0	|	0	|	0	|	0	|	0	|	0	|	0
+
+
+Page size: 8 paragraphs
+Num Training Lines: 93
+Num Testing Cases:	35
+Num Validation Cases:	31
+Words Used for Classifying:	100
+numNeccesary:	1
+upperThreshold:	0.4735
+lowerThreshold:	0.0235
+Words:		sons	5	6	7	8	birds	9	10	11	12	13	therefore	14	thou	shalt	15	16	thereof	17	18	19	20	vol	21	22	4	hath	began	28	29	flocks	�	stood	bird	southern	northern	shot	region	has	commonly	seems	almost	apparently	habits	regions	less	does	says	think	wing	trying	noted	duck	ducks	breeding	specimens	nesting	probably	really	gray	shire	get	across	need	-	dont	frodo	hobbits	moment	yes	don’t	looks	miss	smile	it’s	won’t	haven’t	“i	i’m	can’t	”	i’ll	christian	anastasia	steele	you’re	he’s	me”	you”	“you	that’s	stare	frown	murmurs	doesn’t	“yes	“i’m	asks	shit	i’ve
+Percentage Validation Correct:	0.885714285714
+Percentage Correct:	97.1428571429
+Percentage Buffered:	97.1428571429
+Percentage Incorrect:	2.85714285714
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	8	|	0	|	0	|	0	|	0	|	0	|	0
+2 	|	0	|	7	|	0	|	0	|	0	|	0	|	0
+3 	|	0	|	0	|	6	|	0	|	0	|	0	|	1
+4 	|	0	|	0	|	0	|	8	|	0	|	0	|	0
+5 	|	0	|	0	|	0	|	0	|	4	|	0	|	0
+6 	|	0	|	0	|	0	|	0	|	0	|	1	|	0
+7 	|	0	|	0	|	0	|	0	|	0	|	0	|	0
+
+
+Page size: 9 paragraphs
+Num Training Lines: 83
+Num Testing Cases:	32
+Num Validation Cases:	28
+Words Used for Classifying:	234
+numNeccesary:	1
+upperThreshold:	0.3315
+lowerThreshold:	0.024
+Words:		country	river	�	32	w	israel	33	aaron	egypt	wilderness	wives	4	6	7	spoke	8	9	10	11	12	thee	13	thou	didst	14	hath	shalt	nations	16	17	hast	abundant	18	19	20	21	servant	seed	moreover	28	34	35	36	37	38	40	covenant	camp	burnt	offerings	sacrifice	flocks	thus	vol	law	priest	commanded	themselves	sons	yourselves	perform	kill	15	nor	common	cattle	altar	carry	begun	slay	shot	thyself	daughters	de	beast	sheep	wife	gods	thereof	distinct	species	flock	males	district	distribution	trees	placed	feathers	f	rump	j	received	names	e	feeding	drew	killed	laughed	appearance	iris	region	eastern	latter	western	c	birds	rat	became	mantle	began	farther	bird	captivity	nest	p	recorded	1877	interior	1884	1913	records	1901	winter	india	1879	northern	september	central	april	regions	geese	1885	breed	1909	nesting	rivers	ponds	water-fowl	ducks	gun	tame	southern	1906	coast	noted	1907	writers	von	diving	breeding	nests	1900	heinroth	1911	1864	1874	sexes	observers	characteristic	lakes	confinement	1889	journ	nat	soc	frequently	mm	incubation	plumage	considered	reported	zoological	gardens	1894	london	sclater	bred	females	1898	anas	fairly	extremely	teal	1899	1882	salvadori	evidence	german	1915	1912	commonly	1883	breeds	synonymy	proc	tail-coverts	tarsus	occur	december	james	zool	localities	1888	scapulars	occurrence	islands	1887	foimd	shannon	shire	bent	wandering	farm	hill	rats	frodo	sam	pippin	—	hobbit	riders	folk	dont	hobbits	merry	gandalf	‘and	cotterie	harlan	henry’s	arlette	burlap	‘you	hemingford
+Percentage Validation Correct:	0.875
+Percentage Correct:	96.875
+Percentage Buffered:	96.875
+Percentage Incorrect:	3.125
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	7	|	0	|	0	|	0	|	0	|	0	|	0
+2 	|	0	|	5	|	0	|	0	|	0	|	0	|	0
+3 	|	0	|	0	|	6	|	0	|	0	|	0	|	0
+4 	|	0	|	1	|	0	|	8	|	0	|	0	|	0
+5 	|	0	|	0	|	0	|	0	|	3	|	0	|	0
+6 	|	0	|	0	|	0	|	0	|	0	|	1	|	0
+7 	|	0	|	0	|	0	|	0	|	0	|	0	|	1
+
+
+Page size: 10 paragraphs
+Num Training Lines: 75
+Num Testing Cases:	28
+Num Validation Cases:	26
+Words Used for Classifying:	141
+numNeccesary:	1
+upperThreshold:	0.45
+lowerThreshold:	0.03
+Words:		sons	thou	shalt	hath	�	7	10	13	bird	14	15	16	17	18	19	20	21	country	28	29	11	birds	32	c	31	vol	flocks	drew	river	nest	eastern	tree	de	species	began	region	southern	common	shot	fairly	says	across	sometimes	nesting	commonly	usually	reported	probably	does	ducks	status	recent	almost	has	described	apparently	water-fowl	breed	regions	english	duck	-	gray	wing	breeding	states	seems	rare	records	coast	appears	habits	get	similar	doubt	although	various	really	warm	fact	need	soft	think	anything	holds	shire	move	thinking	hill	trying	expression	glance	frodo	dont	yes	hobbits	hobbit	grey	breath	don’t	looks	smile	stare	haven’t	miss	there’s	“you	”	murmurs	i’m	he’s	flush	christian	steele	shit	“i	you’re	asks	jeez	that’s	it’s	i’ll	frown	“i’m	anastasia	i’d	“so	me”	“oh	smiles	grins	can’t	subconscious	doesn’t	i’ve	didn’t	“it’s	she’s	frowns	“what	“i’ll
+Percentage Validation Correct:	0.928571428571
+Percentage Correct:	96.4285714286
+Percentage Buffered:	100.0
+Percentage Incorrect:	3.57142857143
+
+ 	|	1	|	2	|	3	|	4	|	5	|	6	|	7	|
+----|-------|-------|-------|-------|-------|-------|-------|
+1 	|	6	|	0	|	0	|	0	|	0	|	0	|	0
+2 	|	0	|	5	|	0	|	0	|	0	|	0	|	0
+3 	|	0	|	0	|	5	|	0	|	0	|	0	|	0
+4 	|	0	|	0	|	0	|	7	|	0	|	0	|	0
+5 	|	0	|	0	|	0	|	0	|	3	|	0	|	0
+6 	|	0	|	0	|	0	|	0	|	0	|	0	|	0
+7 	|	0	|	0	|	0	|	0	|	0	|	1	|	1
+
+
