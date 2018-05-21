@@ -1,4 +1,5 @@
 *.swp
 *.lyx~
 *#
+*.log
 kmeans_clustering/logs/

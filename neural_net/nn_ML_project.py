@@ -1,6 +1,9 @@
 import numpy as np
 import math
 import random
+import logging
+import datetime
+import time
 
 word_dic = {}
 pages = []
@@ -21,7 +24,6 @@ def readInData():
 			page = page.replace(",", "").replace(".", "").replace("?", " ? ").replace("!", " ! ").replace("\"", 			"").replace(":","").replace(";", "").replace("\n", "").replace(")", "").replace("(", "").replace("'", 				"").replace("\xe2\x80\x99","'").replace("\xe2\x80\x9d", "").replace("\xe2\x80\x9d", "").replace("\xe2\x80\x9c", 			"").replace("\xe2\x80\x94","")
 			pages.append([page, i])
 			split_pages.append(page.split(" "))
-		#print pages_and_class
 	
 		#Adds the words to the word dictionary. A word should only be added once
 		for page in split_pages:
@@ -29,8 +31,8 @@ def readInData():
 				if not word in word_dic:
 					word_dic[word] = word_index
 					word_index += 1
-		#return pages_and_class
-	
+
+		
 #Creates a weight matrix of the correct dimensions. First param is the size you want the layer, second param is the layer
 #which will input to this layer, used here for the dimensions of the weight matrix
 def initNetworkLayer(size, input_layer, variance):
@@ -62,125 +64,157 @@ def ReLU_derivative(activation_array):
 			derivatives_array[i] = 1
 	return derivatives_array
 
-#Computes the activation for the layer which weights are given. The first parameter is the output of the layer before it
-def computeLayerActivation(inputLayer, currentLayerWeights):
-	return(sigmoid(np.matmul(currentLayerWeights, inputLayer)))
+def hyper_tan(activation_array):
+	return np.tanh(activation_array)
+
+def softmax(z_array):
+	summation = sum(np.exp(z_array))
+	return_array = np.zeros(len(z_array))
+	for i in range(len(z_array)):
+		return_array[i] = np.exp(z_array[i])/summation
+	return return_array
 
 def main():
 	#Hyper-parameters
-	learning_rate = 0.1
-	regularization_rate = 0.001
-	depth = 3
+	learning_rate = 0.1		#Starting learning rate
+	regularization_rate = 0.01	#Starting regularization rate
 	training_percent = 0.6
 	validation_percent = 0.2
-	test_percent = 0.2347
-	num_batches = 20
-	num_epochs = 10
+	test_percent = 0.2
+	num_batches = 50				#Starting number of batches
+	num_epochs = 50
+	best_validation = 0
+	best_validation_index = 0
 
 	readInData()
 
 	evened_pages = pages[0:347] + pages[0:347] + pages[0:347] + pages[347: 724] + pages[347: 724] + pages[347: 724] + pages[724: 1210] + pages[724: 1210]  + pages[724: 924] + pages[1210: 2019] + pages[1400:1600] + pages[2019: 3123] + pages[3123:3851] + pages[3200:3500] + pages[3851:4700] + pages[3900:4050]
 	
 	random.shuffle(evened_pages)
-	print len(evened_pages)
 
 	#Splits pages into training, validation and test data sets
 	training_pages = evened_pages[:int(training_percent*len(evened_pages))]
 	validation_pages = evened_pages[int(training_percent*len(evened_pages)): int((training_percent+validation_percent)*len(evened_pages))]
 	test_pages = evened_pages[int((training_percent+validation_percent)*len(evened_pages)): int((training_percent		+validation_percent	+test_percent)*len(evened_pages))]
-
-	print len(training_pages)
 	
 	#Just used to get the dimensions for the input
 	input_dim_holder = np.zeros(len(word_dic))
 	input_dim_holder = np.transpose(input_dim_holder)
 
-	#Defining architecture. The first parameter is the size of the layer, the second is the layer before it
-	w1 = initNetworkLayer(200, input_dim_holder, 0.15)
-	w2 = initNetworkLayer(20, w1, 0.2)
-	w3 = initNetworkLayer(7, w2, 0.5)
-
-	#print w1
-	#print "###########################################################################################################"
-	#print w2
-	#print "***********************************************************************************************************"
-	#print w3
-	#print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
 	
-	#Defines update matrices for each weight
-	w1_update = initNetworkLayer(200, input_dim_holder, 0)
-	w2_update = initNetworkLayer(20, w1, 0)
-	w3_update = initNetworkLayer(7, w2, 0)
-
 	num_correct = 0
+	for j in range(11):					#Validation Iterations
 
-	for i in range(num_epochs):
-		batch_size = len(training_pages)/num_batches
-		for i in range(1, num_batches):
-			batch_pages = training_pages[batch_size*(i-1): batch_size*i]
-			random.shuffle(pages)
-			batch_error = 0
-			a1_error = 0
-			a2_error = 0
-			a3_error = 0
-			for page in batch_pages:
-				input_array = np.zeros(len(word_dic))
-				for word in page[0].split(" "):				#page[0] is the actual page, page[1] is the book number its from
-					input_array[word_dic[word]] = 1
-				input_array_transposed = np.transpose(input_array)
+		#Defining architecture. The first parameter is the size of the layer, the second is the layer before it
+		wS = initNetworkLayer(7, input_dim_holder, 0.01)
+
+		wS_update = initNetworkLayer(7, input_dim_holder, 0.0)
+
+		if j == 10:
+			j = best_validation_index
+
+		#num_batches += (j*10)
+		learning_rate += j/10
+		#regularization_rate += j/10
+		for i in range(num_epochs):
+			batch_size = len(training_pages)/num_batches
+			for i in range(1, num_batches):
+				batch_pages = training_pages[batch_size*(i-1): batch_size*i]
+				random.seed(time.time())
+				random.shuffle(batch_pages)
+				batch_error = 0
+				batch_correct = 0.0
+				partial_derive_wS = 0
+				for page in batch_pages:
+					input_array = np.zeros(len(word_dic))
+					for word in page[0].split(" "):			#page[0] is the actual page, page[1] is the book number its from
+						if word in word_dic:
+							input_array[word_dic[word]] = 1
+					input_array_transposed = np.transpose(input_array)
 	
-				a1 = computeLayerActivation(input_array_transposed, w1)
-				a2 = computeLayerActivation(a1, w2)
-				a3 = computeLayerActivation(a2, w3)
-				classification = np.argmax(a3)
+					#Feed forward
+					zS = np.matmul(wS, input_array_transposed)
+					aS = softmax(zS)
+					classification = np.argmax(aS)
 
-				#print a1
-				#print "#####################################################################################################"
-				#print a2
-				#print "*****************************************************************************************************"
-				#print a3
-				#print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-		
-				#Computing loss
-				y = np.zeros(7)
-				y[page[1]-1] = 1
-				log_output = np.zeros(7)
-				for i in range(a3.shape[0]):
-					log_output[i] = math.log(a3[i])
-				error = np.dot(y, log_output)+np.dot((1-y), (1-log_output))
-				batch_error += error
+					#Computing loss
+					y = np.zeros(7)
+					y[page[1]-1] = 1
+					
+					if classification == (page[1]-1):
+						batch_correct += 1.0
+					#	print "                                                                           Correct"
+
+					#Computing layer errors from back prop 
+					aS_error = aS-y
+
+					#Computing weight updates
+					partial_derive_wS += np.dot(aS_error.reshape(7,1), input_array.reshape(1,len(input_array)))
 
 
-				print "Classified class: "+str(classification)+". Actual is: "+str(page[1]-1)
-				print str(a3) + "              "+ str(y)
-				if classification == (page[1]-1):
-					print "                                                                           Correct"
+				#Update weights with gradient descent
+				wS -= (learning_rate/batch_size)*partial_derive_wS + (regularization_rate*wS)
+								
+			print "End epoch"
+		print "End train"
 
-				#Computing layer errors from back prop 
-				a3_error += np.multiply((a3 - y),np.multiply(a3,(1-a3)))					#This is for sigmoid activation
-				#a3_error += np.multiply((a3 - y), ReLU_derivative(a3))
-				a2_error += np.multiply(np.dot(np.transpose(w3), a3_error),np.multiply(a2,(1-a2))) 
-				a1_error += np.multiply(np.dot(np.transpose(w2), a2_error),np.multiply(a1,(1-a1)))
+		confusion_matrix = np.zeros([7,7])
+		for page in validation_pages:
+			input_array = np.zeros(len(word_dic))
+			for word in page[0].split(" "):				#page[0] is the actual page, page[1] is the book number its from
+				if word in word_dic:
+					input_array[word_dic[word]] = 1
+			input_array_transposed = np.transpose(input_array)
 
-			#Computing weight updates
-			partial_derive_w1 = np.dot(a1_error.reshape(200,1), input_array.reshape(1,len(input_array)))
-			partial_derive_w2 = np.dot(a2_error.reshape(20,1), a1.reshape(1,200))
-			partial_derive_w3 = np.dot(a3_error.reshape(7,1), a2.reshape(1,20))
-		
-			#print partial_derive_w1
-			#print "#######################################################################################################"
-			#print partial_derive_w2
-			#print "*******************************************************************************************************"
-			#print partial_derive_w3
-			#print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+			#Feed forward
+			zS = np.matmul(wS, input_array_transposed)
+			aS = softmax(zS)
+			classification = np.argmax(aS)
 
-			#Update weights with gradient descent
-			w1 -= (learning_rate/batch_size)*partial_derive_w1 #+ (regularization_rate*w1)
-			w2 -= (learning_rate/batch_size)*partial_derive_w2 #+ (regularization_rate*w2)
-			w3 -= (learning_rate/batch_size)*partial_derive_w3 #+ (regularization_rate*w3)
-		
-			print "Updated weights"
-	print "End train"
+			confusion_matrix[classification][page[1]-1] += 1
+		accuracy = (confusion_matrix[0][0] + confusion_matrix[1][1] + confusion_matrix[2][2] + confusion_matrix[3][3] + confusion_matrix[4][4] + confusion_matrix[5][5] + confusion_matrix[6][6])/len(validation_pages)
+		if accuracy > best_validation:
+			best_validation_index = j
+			best_validation = accuracy
+		#print "Validation Accuracy: " + str(accuracy)
+		#print confusion_matrix
+
+		logging.basicConfig(level=logging.DEBUG,
+				            format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+				            datefmt='%m-%d %H:%M',
+				            filename='./validation'+str(datetime.datetime.now())+'.log',
+				            filemode='w')
+		console = logging.StreamHandler()
+		console.setLevel(logging.INFO)
+		formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
+		console.setFormatter(formatter)
+		logging.getLogger('').addHandler(console)
+		logging.info("Validation Accuracy: " + str(accuracy))
+		logging.info(confusion_matrix)
+
+
+	print best_validation_index
+	print best_validation
+	confusion_matrix = np.zeros([7,7])
+	for page in test_pages:
+		input_array = np.zeros(len(word_dic))
+		for word in page[0].split(" "):				#page[0] is the actual page, page[1] is the book number its from
+			if word in word_dic:
+				input_array[word_dic[word]] = 1
+		input_array_transposed = np.transpose(input_array)
+
+		#Feed forward
+		zS = np.matmul(wS, input_array_transposed)
+		aS = softmax(zS)
+		classification = np.argmax(aS)
+
+		confusion_matrix[classification][page[1]-1] += 1
+	accuracy = (confusion_matrix[0][0] + confusion_matrix[1][1] + confusion_matrix[2][2] + confusion_matrix[3][3] + confusion_matrix[4][4] + confusion_matrix[5][5] + confusion_matrix[6][6])/len(validation_pages)
+	if accuracy > best_validation:
+		best_validation_index = j
+		best_validation = accuracy
+	print "Test Accuracy: " + str(accuracy)
+	print confusion_matrix
 
 	
 if __name__ == '__main__':
